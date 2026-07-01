@@ -33,7 +33,8 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 | LMB | 轻攻击 |
 | Shift + LMB | 重攻击 |
 | RMB | 格挡 |
-| Space + 方向 | 闪避 |
+| Space | 跳跃 |
+| Space + 方向 | 闪避（消耗耐力，带位移） |
 | E (aux1) | 赐福交互 |
 | Z (zoom) | 锁定目标 |
 | `/lockon` | 锁定目标（聊天命令） |

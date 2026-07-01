@@ -143,7 +143,7 @@ minetest.register_node("voxsoul_world:tutorial_sign", {
     on_rightclick = function(pos, node, clicker)
         if clicker:is_player() then
             minetest.chat_send_player(clicker:get_player_name(),
-                "LMB=light attack | Shift+LMB=heavy | RMB=block | Space+dodge | E=grace | Z=lock-on")
+                "LMB=light | Shift+LMB=heavy | RMB=block | Space=jump | Space+move=dodge | E=grace | Z=lock-on")
         end
     end,
 })

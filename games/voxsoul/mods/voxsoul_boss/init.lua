@@ -108,7 +108,18 @@ minetest.register_entity("voxsoul_boss:entity", {
             self.brain.elapsed = (self.brain.elapsed or 0) + dtime
             local atk = self.brain.current_atk
             if not self.brain.hit_applied and atk and self.brain.elapsed >= atk.windup then
-                voxsoul.combat.hit_entity_with_attack(self.object, atk, target)
+                local tpos = target:get_pos()
+                local hit = false
+                local hb = atk.hitbox or { type = "circle", radius = 3 }
+                if hb.type == "arc" then
+                    local yaw = minetest.dir_to_yaw(vector.direction(pos, tpos))
+                    hit = voxsoul.entity.hitbox.in_arc(pos, yaw, tpos, hb.radius or 3, hb.angle or 90)
+                else
+                    hit = voxsoul.entity.hitbox.in_circle(pos, tpos, hb.radius or 3)
+                end
+                if hit then
+                    voxsoul.combat.hit_entity_with_attack(self.object, atk, target)
+                end
                 self.brain.hit_applied = true
             end
             if atk and self.brain.elapsed >= atk.windup + 0.5 then

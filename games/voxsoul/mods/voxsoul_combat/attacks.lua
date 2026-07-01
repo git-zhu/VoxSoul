@@ -83,14 +83,14 @@ function voxsoul.combat.resolve_attack_hit(player, atk)
         weapon_mult = voxsoul.items.get_damage_mult(player)
     end
     local damage = atk.base_damage * weapon_mult
-    for _, obj in ipairs(minetest.get_objects_inside_radius(pos, 3.0)) do
+    for _, obj in ipairs(minetest.get_objects_inside_radius(pos, 4.0)) do
         if obj:is_player() then
             goto continue
         end
         local ent = obj:get_luaentity()
         if ent and ent.voxsoul_combatant then
             local tpos = obj:get_pos()
-            if voxsoul.entity.hitbox.in_arc(pos, yaw, tpos, 2.5, 90) then
+            if voxsoul.entity.hitbox.in_arc(pos, yaw, tpos, 3.5, 120) then
                 local final = damage
                 if ent.stagger_timer and ent.stagger_timer > 0 then
                     final = final * 1.5

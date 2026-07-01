@@ -135,12 +135,19 @@ minetest.register_globalstep(function(dt)
         )
 
         local speed = 1.0
+        local jump = 1.0
         if voxsoul.combat.stamina.is_exhausted(data.stamina, data.max_stamina) then
             speed = 0.7
         elseif data.blocking or data.state == "blocking" then
             speed = 0.5
         end
-        voxsoul.core.apply_physics(player, { speed = speed })
+        if data.state == "dodging" then
+            speed = 0.3
+            jump = 0
+        elseif data.state == "attacking" or data.state == "hitstun" or data.state == "guardbreak" then
+            jump = 0
+        end
+        voxsoul.core.apply_physics(player, { speed = speed, jump = jump })
         voxsoul.combat.update_lockon_facing(player)
 
         if data.hp <= 0 and data.state ~= "dead" then
