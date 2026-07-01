@@ -7,6 +7,7 @@ dofile(modpath .. "/constants.lua")
 dofile(modpath .. "/nodes.lua")
 dofile(modpath .. "/map_builder.lua")
 dofile(modpath .. "/spawn.lua")
+dofile(modpath .. "/enemy_ai.lua")
 
 function voxsoul.world.respawn_enemies()
     for _, spawn in ipairs(voxsoul.world.enemy_spawns) do
@@ -26,11 +27,26 @@ minetest.register_entity("voxsoul_world:knight", {
     },
     voxsoul_combatant = true,
     hp = 150,
+    max_hp = 150,
     max_poise = 40,
     poise = 40,
     runes = 100,
+    name = "Banished Knight",
     on_activate = function(self)
         self.object:set_armor_groups({ immortal = 1 })
+        self.max_hp = self.max_hp or 150
+        self.hp = self.hp or self.max_hp
+    end,
+    on_step = function(self, dtime)
+        voxsoul.world.enemy_ai.step(self, dtime, {
+            chase_range = 20,
+            attack_range = 2.8,
+            damage = 22,
+            poise = 12,
+            windup = 0.75,
+            recovery = 0.55,
+            speed = 4.5,
+        })
     end,
     on_hit = function(self, attacker, damage)
         if self.hp <= 0 then
@@ -51,11 +67,26 @@ minetest.register_entity("voxsoul_world:omen_freak", {
     },
     voxsoul_combatant = true,
     hp = 80,
+    max_hp = 80,
     max_poise = 20,
     poise = 20,
     runes = 50,
+    name = "Omen Freak",
     on_activate = function(self)
         self.object:set_armor_groups({ immortal = 1 })
+        self.max_hp = self.max_hp or 80
+        self.hp = self.hp or self.max_hp
+    end,
+    on_step = function(self, dtime)
+        voxsoul.world.enemy_ai.step(self, dtime, {
+            chase_range = 16,
+            attack_range = 2.5,
+            damage = 16,
+            poise = 8,
+            windup = 0.55,
+            recovery = 0.45,
+            speed = 5,
+        })
     end,
     on_hit = function(self, attacker, damage)
         if self.hp <= 0 then
@@ -93,6 +124,21 @@ minetest.register_entity("voxsoul_world:rune_pile", {
         return tostring(self.amount or 0)
     end,
 })
+
+function voxsoul.world.try_pickup_runes(player)
+    local pos = player:get_pos()
+    for _, obj in ipairs(minetest.get_objects_inside_radius(pos, 2.5)) do
+        if not obj:is_player() then
+            local ent = obj:get_luaentity()
+            if ent and ent.amount and ent.amount > 0 then
+                voxsoul.player.add_runes(player, ent.amount)
+                obj:remove()
+                return true
+            end
+        end
+    end
+    return false
+end
 
 local function register_spawn(pos, name)
     table.insert(voxsoul.world.enemy_spawns, { pos = pos, name = name, entity = nil })
@@ -170,7 +216,9 @@ minetest.register_globalstep(function()
             voxsoul.combat.dodge.try_start(player, voxsoul.combat.ensure_data(player))
         end
         if ctrl.aux1 and not edge.aux1 then
-            voxsoul.grace.try_interact(player)
+            if not voxsoul.grace.try_interact(player) then
+                voxsoul.world.try_pickup_runes(player)
+            end
         end
         if ctrl.zoom and not edge.zoom then
             voxsoul.combat.toggle_lockon(player)

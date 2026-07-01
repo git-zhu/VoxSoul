@@ -2,11 +2,13 @@ voxsoul.ui = {}
 dofile(minetest.get_modpath("voxsoul_ui") .. "/hud.lua")
 dofile(minetest.get_modpath("voxsoul_ui") .. "/boss_hud.lua")
 dofile(minetest.get_modpath("voxsoul_ui") .. "/lockon_marker.lua")
+dofile(minetest.get_modpath("voxsoul_ui") .. "/target_hud.lua")
 
 minetest.register_globalstep(function()
     for _, player in ipairs(minetest.get_connected_players()) do
         voxsoul.ui.update_player_hud(player)
         voxsoul.ui.update_lockon_marker(player)
+        voxsoul.ui.update_lock_target_hud(player)
     end
 end)
 

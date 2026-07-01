@@ -60,6 +60,13 @@ function voxsoul.combat.update_lockon_facing(player)
     if not tpos then
         return
     end
-    local yaw = minetest.dir_to_yaw(vector.direction(pos, tpos))
+    local dir = vector.direction(pos, tpos)
+    local yaw = minetest.dir_to_yaw(dir)
     player:set_look_horizontal(yaw)
+    local horiz = math.sqrt(dir.x * dir.x + dir.z * dir.z)
+    if horiz > 0.01 then
+        local pitch = -math.atan2(dir.y, horiz)
+        pitch = math.max(-0.6, math.min(0.4, pitch))
+        player:set_look_vertical(pitch)
+    end
 end
