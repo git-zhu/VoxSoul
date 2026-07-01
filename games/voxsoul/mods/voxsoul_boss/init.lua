@@ -30,6 +30,9 @@ function voxsoul.boss.on_defeated(boss_id, player)
     if boss_id == "margit" then
         voxsoul.grace.unlock(player, "after_margit")
     end
+    if boss_id == "grafted_hag" and voxsoul.ui and voxsoul.ui.show_demo_clear then
+        voxsoul.ui.show_demo_clear(player)
+    end
     voxsoul.ui.hide_boss_bar(boss_id)
 end
 

@@ -121,3 +121,14 @@ function voxsoul.ui.show_death(player, lost, grace_name)
     minetest.show_formspec(player:get_player_name(), "voxsoul:death",
         "size[8,4]label[0,0;YOU DIED]label[0,1;Lost runes: " .. lost .. "]label[0,2;Revive at: " .. grace_name .. "]")
 end
+
+function voxsoul.ui.show_demo_clear(player)
+    local d = voxsoul.player and voxsoul.player.data[player:get_player_name()]
+    local runes = d and d.runes or 0
+    minetest.show_formspec(player:get_player_name(), "voxsoul:demo_clear",
+        "size[10,5]label[0,0;DEMO COMPLETE]" ..
+        "label[0,1;You have conquered the Limgrave Fragment.]" ..
+        "label[0,2;Runes held: " .. runes .. "]" ..
+        "label[0,3;Rest at Grace to continue exploring.]" ..
+        "button[3,4;4,1;ok;Continue]")
+end
