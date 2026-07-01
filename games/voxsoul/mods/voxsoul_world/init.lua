@@ -5,6 +5,7 @@ voxsoul.world.enemy_spawns = {}
 local modpath = minetest.get_modpath("voxsoul_world")
 dofile(modpath .. "/nodes.lua")
 dofile(modpath .. "/map_builder.lua")
+dofile(modpath .. "/spawn.lua")
 
 local SPAWN_Y = 11
 
@@ -104,16 +105,20 @@ minetest.register_on_mods_loaded(function()
     register_spawn(vector.new(210, 6, 45), "voxsoul_world:omen_freak")
     register_spawn(vector.new(215, 6, 50), "voxsoul_world:omen_freak")
     register_spawn(vector.new(220, 6, 55), "voxsoul_world:omen_freak")
-    minetest.after(0, function()
-        voxsoul.world.ensure_map()
-    end)
-end)
-
-minetest.register_on_newplayer(function(player)
-    player:set_pos(vector.new(0, SPAWN_Y, 0))
 end)
 
 minetest.register_on_joinplayer(function(player)
+    minetest.after(0, function()
+        if not player:is_player() then
+            return
+        end
+        voxsoul.world.setup_player(player)
+        minetest.after(0.3, function()
+            if player:is_player() and voxsoul.camera then
+                voxsoul.camera.apply(player)
+            end
+        end)
+    end)
     minetest.after(1, function()
         if not player:is_player() then return end
         voxsoul.world.respawn_enemies()
@@ -133,6 +138,8 @@ minetest.register_node("voxsoul_world:tutorial_sign", {
     description = "Tutorial Sign",
     tiles = { "voxsoul_tutorial.png" },
     groups = { unbreakable = 1 },
+    paramtype = "light",
+    sunlight_propagates = true,
     on_rightclick = function(pos, node, clicker)
         if clicker:is_player() then
             minetest.chat_send_player(clicker:get_player_name(),

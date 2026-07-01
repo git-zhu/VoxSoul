@@ -85,8 +85,11 @@ function voxsoul.world.build_map()
 end
 
 function voxsoul.world.ensure_map()
-    if voxsoul.get_string("voxsoul:map_built") == "1" then
-        return
+    local floor = minetest.get_node(vector.new(0, FLOOR_Y, 0))
+    if floor.name == "air" or floor.name == "ignore" then
+        voxsoul.set_string("voxsoul:map_built", "")
     end
-    voxsoul.world.build_map()
+    if voxsoul.get_string("voxsoul:map_built") ~= "1" then
+        voxsoul.world.build_map()
+    end
 end

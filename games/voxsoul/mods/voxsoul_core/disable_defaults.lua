@@ -63,6 +63,13 @@ minetest.register_chatcommand("voxsoul", {
             end
             return true, "Teleported to last grace."
         end
-        return false, "Usage: /voxsoul unstuck"
+        if param == "respawn" then
+            local player = minetest.get_player_by_name(name)
+            if player and voxsoul.world then
+                voxsoul.world.setup_player(player)
+                return true, "Respawned at tutorial area."
+            end
+        end
+        return false, "Usage: /voxsoul unstuck | respawn"
     end,
 })

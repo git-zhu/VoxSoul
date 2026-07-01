@@ -90,6 +90,8 @@ minetest.register_node("voxsoul_grace:site", {
     description = "Grace Site",
     tiles = { "voxsoul_grace.png" },
     groups = { unbreakable = 1 },
+    paramtype = "light",
+    sunlight_propagates = true,
     on_rightclick = function(pos, node, clicker)
         if clicker:is_player() then
             for id, site in pairs(voxsoul.grace.sites) do
