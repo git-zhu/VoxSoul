@@ -16,6 +16,7 @@ function voxsoul.combat.perform_attack(player, kind)
     end
     data.stamina = data.stamina - cost
     data.state = "attacking"
+    data.attack_kind = kind == "heavy" and "heavy" or "light"
     data.attack_timer = 0
     data.pending_attack = atk
     data.regen_delay = C.STAMINA_REGEN_DELAY_ATTACK

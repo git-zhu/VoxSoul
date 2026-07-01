@@ -100,6 +100,7 @@ minetest.register_globalstep(function(dt)
             if not data.pending_attack and data.attack_timer >= recovery then
                 data.state = "idle"
                 data.attack_timer = 0
+                data.attack_kind = nil
             end
         elseif data.state == "blocking" and data.blocking then
             data.stamina = data.stamina - voxsoul.combat.constants.STAMINA_COST.block_per_sec * dt

@@ -112,22 +112,41 @@ function M.set_animation(player, anim_name, speed, loop)
     end
 end
 
+local COMBAT_ANIM = {
+    lay = { name = "lay", speed = 30, loop = false },
+    hitstun = { name = "hitstun", speed = 10, loop = false },
+    guardbreak = { name = "guardbreak", speed = 20, loop = false },
+    attack_light = { name = "attack_light", speed = 40, loop = false },
+    attack_heavy = { name = "attack_heavy", speed = 30, loop = false },
+    dodge = { name = "dodge", speed = 60, loop = false },
+    block = { name = "block", speed = 15, loop = true },
+}
+
 local function combat_animation(player)
     if not voxsoul.combat then
         return nil
     end
     local data = voxsoul.combat.ensure_data(player)
-    if data.state == "dodging" then
-        return "walk", 45
+    if data.hp <= 0 or data.state == "dead" then
+        return COMBAT_ANIM.lay
+    end
+    if data.state == "hitstun" then
+        return COMBAT_ANIM.hitstun
+    end
+    if data.state == "guardbreak" then
+        return COMBAT_ANIM.guardbreak
     end
     if data.state == "attacking" then
-        return "mine", 35
+        if data.attack_kind == "heavy" then
+            return COMBAT_ANIM.attack_heavy
+        end
+        return COMBAT_ANIM.attack_light
+    end
+    if data.state == "dodging" then
+        return COMBAT_ANIM.dodge
     end
     if data.blocking or data.state == "blocking" then
-        return "stand", 20
-    end
-    if data.state == "hitstun" or data.state == "guardbreak" then
-        return "stand", 15
+        return COMBAT_ANIM.block
     end
     return nil
 end
@@ -138,9 +157,9 @@ function M.globalstep()
         local player_data = players[name]
         local model = player_data and models[player_data.model]
         if model and not M.player_attached[name] then
-            local forced_name, forced_speed = combat_animation(player)
-            if forced_name then
-                M.set_animation(player, forced_name, forced_speed)
+            local forced = combat_animation(player)
+            if forced then
+                M.set_animation(player, forced.name, forced.speed, forced.loop)
             else
                 local controls = player:get_player_control()
                 local animation_speed_mod = model.animation_speed or 30
@@ -148,9 +167,7 @@ function M.globalstep()
                     animation_speed_mod = animation_speed_mod / 2
                 end
 
-                if player:get_hp() == 0 then
-                    M.set_animation(player, "lay")
-                elseif controls.up or controls.down or controls.left or controls.right then
+                if controls.up or controls.down or controls.left or controls.right then
                     if controls.dig or controls.place then
                         M.set_animation(player, "walk_mine", animation_speed_mod)
                     else
@@ -181,6 +198,12 @@ M.register_model("voxsoul_tarnished.b3d", {
         walk = { x = 168, y = 187 },
         mine = { x = 189, y = 198 },
         walk_mine = { x = 200, y = 219 },
+        attack_light = { x = 189, y = 198, override_local = true },
+        attack_heavy = { x = 200, y = 219, override_local = true },
+        dodge = { x = 168, y = 187, override_local = true },
+        block = { x = 0, y = 79 },
+        hitstun = { x = 0, y = 79, override_local = true },
+        guardbreak = { x = 81, y = 160, override_local = true },
         sit = {
             x = 81,
             y = 160,
