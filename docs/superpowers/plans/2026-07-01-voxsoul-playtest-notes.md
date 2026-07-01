@@ -39,3 +39,34 @@
 - Boss/敌人仍为 sprite，非 mesh
 - 锁定无相机环绕
 - 弹反/手感未调参
+
+---
+
+## Sprint B — UI & Animation (2026-07-01)
+
+**Build:** statbar HUD, lockon marker, semantic combat animations
+
+### Code verified
+
+- [x] statbar HP / stamina（左下）
+- [x] 耐力耗尽闪烁逻辑
+- [x] 卢恩 text HUD（右下）
+- [x] Boss statbar + 名称（顶部）
+- [x] Z 锁定 image_waypoint 红圈
+- [x] attack_kind light/heavy
+- [x] 语义动画优先级表
+
+### Manual checklist (spec §5.2)
+
+- [ ] 进游戏左下可见红/绿条，随受伤/消耗变化
+- [ ] 耐力耗尽时绿条闪烁
+- [ ] 右下卢恩数正确
+- [ ] Boss 战顶部名称 + 血条
+- [ ] Z 锁定脚下红圈
+- [ ] LMB 轻攻击动画
+- [ ] Shift+LMB 重攻击动画
+- [ ] Space+方向闪避动画
+- [ ] RMB 格挡慢速 stand
+- [ ] 死亡 lay 动画
+
+**Checklist completion:** 7/17 code-verified; 10 manual items need in-game session.

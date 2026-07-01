@@ -1,7 +1,7 @@
 # VoxSoul — UI & 动作 Sprint B 设计规格
 
 **日期**：2026-07-01  
-**状态**：Draft — 待用户审阅  
+**状态**：Approved  
 **前置**：Playability Sprint A 已完成（map v2、战斗 HP、Z 锁定）  
 **策略**：C — UI 与动作并行；动画资源 A — 现有 b3d 帧重映射
 
