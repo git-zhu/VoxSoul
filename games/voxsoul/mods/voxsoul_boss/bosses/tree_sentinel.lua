@@ -1,6 +1,8 @@
 return {
     id = "tree_sentinel",
     name = "Tree Sentinel",
+    sprite = "voxsoul_boss_tree_sentinel.png",
+    visual_size = { x = 2.5, y = 3.5 },
     max_hp = 800,
     max_poise = 120,
     runes = 800,

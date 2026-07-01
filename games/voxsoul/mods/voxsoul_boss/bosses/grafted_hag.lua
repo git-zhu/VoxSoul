@@ -1,6 +1,8 @@
 return {
     id = "grafted_hag",
     name = "Grafted Hag",
+    sprite = "voxsoul_boss_grafted_hag.png",
+    visual_size = { x = 2.0, y = 2.5 },
     max_hp = 600,
     max_poise = 50,
     runes = 1500,

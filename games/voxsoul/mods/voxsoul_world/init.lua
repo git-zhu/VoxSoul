@@ -21,7 +21,8 @@ end
 minetest.register_entity("voxsoul_world:knight", {
     initial_properties = {
         visual = "sprite",
-        textures = { "voxsoul_enemy.png" },
+        textures = { "voxsoul_enemy_knight.png" },
+        visual_size = { x = 1.2, y = 2.2 },
         physical = true,
         collisionbox = { -0.4, 0, -0.4, 0.4, 1.8, 0.4 },
     },
@@ -61,7 +62,8 @@ minetest.register_entity("voxsoul_world:knight", {
 minetest.register_entity("voxsoul_world:omen_freak", {
     initial_properties = {
         visual = "sprite",
-        textures = { "voxsoul_enemy.png" },
+        textures = { "voxsoul_enemy_omen.png" },
+        visual_size = { x = 1.0, y = 1.8 },
         physical = true,
         collisionbox = { -0.4, 0, -0.4, 0.4, 1.5, 0.4 },
     },

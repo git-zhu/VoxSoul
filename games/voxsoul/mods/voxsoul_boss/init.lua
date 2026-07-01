@@ -81,6 +81,11 @@ minetest.register_entity("voxsoul_boss:entity", {
             self.max_hp = def.max_hp
             self.poise = def.max_poise
             self.max_poise = def.max_poise
+            local tex = def.sprite or "voxsoul_boss.png"
+            self.object:set_properties({
+                textures = { tex },
+                visual_size = def.visual_size or { x = 2, y = 3 },
+            })
         end
         self.brain = { state = "idle", timer = 0, last_attack = nil, phase = 1 }
     end,
@@ -172,12 +177,13 @@ local DEAGGRO_TIME = 5
                 self.brain.last_attack = atk_name
                 self.object:set_velocity({ x = 0, y = 0, z = 0 })
                 local p = self.object:get_pos()
+                local tex = def.sprite or "voxsoul_boss.png"
                 minetest.add_particle({
                     pos = { x = p.x, y = p.y + 1, z = p.z },
                     velocity = { x = 0, y = 0.5, z = 0 },
                     expirationtime = atk.windup or 1,
                     size = 3,
-                    texture = "voxsoul_boss.png",
+                    texture = tex,
                     glow = 4,
                 })
             end

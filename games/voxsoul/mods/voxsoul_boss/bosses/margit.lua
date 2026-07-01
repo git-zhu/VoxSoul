@@ -1,6 +1,8 @@
 return {
     id = "margit",
     name = "Margit",
+    sprite = "voxsoul_boss_margit.png",
+    visual_size = { x = 2.2, y = 3.8 },
     max_hp = 1200,
     max_poise = 80,
     runes = 3000,
