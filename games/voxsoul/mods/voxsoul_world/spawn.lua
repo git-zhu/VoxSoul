@@ -26,7 +26,9 @@ end
 function voxsoul.world.setup_player(player)
     voxsoul.world.ensure_map()
     voxsoul.world.ensure_spawn_pad()
-    minetest.set_time_of_day(0.5)
+    if minetest.set_timeofday then
+        minetest.set_timeofday(0.5)
+    end
     player:set_pos(voxsoul.world.get_spawn_pos())
     player:set_look_horizontal(0)
     player:set_look_vertical(0)
