@@ -11,20 +11,20 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 
 仓库内已下载 Luanti 5.16.1 便携版，并完成子游戏联接：
 
-```powershell
-# 启动 Luanti 客户端
-& "D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\bin\luanti.exe"
+**推荐启动：**
 
-# 或启动专用服务器（联调 / 多人）
-& "D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\bin\luanti.exe" `
-  --server --world "D:\Z\game\VoxSoul\games\voxsoul\worlds\demo_interlude" --gameid voxsoul
+```powershell
+D:\Z\game\VoxSoul\play-voxsoul.bat
 ```
 
-**首次进入游戏：**
+**手动启动（便携 Luanti）：**
 
-1. 启动客户端 → **开始游戏** → 选择世界 **demo_interlude**（或新建，游戏选 **VoxSoul**）
-3. 出生点：引导高台 `(0, 21, 0)`（绿色草地平台，地面 Y=20）
-4. 控制台应出现 `Demo map v2 build complete`（仅首次建图或 map_version 变更后）
+```powershell
+& "D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\bin\luanti.exe" `
+  --world "D:\Z\game\VoxSoul\games\voxsoul\worlds\demo_interlude" --gameid voxsoul --go
+```
+
+**地图版本：** Demo 使用 `map_version=4`（史东薇尔片段）。若地形异常，删除 `games/voxsoul/worlds/demo_interlude/mod_storage/voxsoul_core` 后重启；控制台应出现 `Demo map v4 build complete`。
 
 ## 操作
 
@@ -40,21 +40,22 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 | `/lockon` | 锁定目标（聊天命令） |
 | `/voxsoul unstuck` | 传送到最近赐福 |
 
-**地图版本：** Demo 世界使用 `map_version=2`（地面 Y=20）。若地形异常，删除 `games/voxsoul/worlds/demo_interlude/mod_storage/voxsoul_core` 后重启以强制重建。
-
-## HUD
+**地图版本：** 见上方「快速启动」说明。
 
 - 左下：法环风 HP / 耐力 statbar + 数值
 - 右下：卢恩数、当前武器与护符
 - Boss 战：顶部 Boss 名 + 血条（阶段切换金色闪屏）
 - Z 锁定：目标脚下红圈；WASD 相对目标 strafe 环绕
 
-## Demo 地图路线
+## Demo 地图路线（宁姆格福 → 史东薇尔 → 葛瑞克）
 
 ```
-引导废墟 → 门旁赐福 → 开阔道(大树守卫) → 风暴赐福
-→ 玛尔基特 → 关卡后赐福 → 接肢墓(鬼婆)
+引导废墟 → 引导门前赐福 → 开阔道(大树守卫) → 风暴山头赐福
+→ 恶兆玛尔基特 → 雾墙门外赐福 → 史东薇尔城门 → 城庭
+→ [侧路: 史东薇尔侧室赐福] → 接肢大厅赐福 → 接肢葛瑞克
 ```
+
+**验收 Boss 链：** 大树守卫（可选）→ 玛尔基特 → **接肢葛瑞克**（二阶段，通关）
 
 ## 链接到系统 Luanti（可选）
 
@@ -82,8 +83,8 @@ D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\games\voxsoul → 仓库 game
 - 贴图使用 CC0 手绘 Minetest 包（drummyfish / OpenGameArt），可用 `python tools/install_textures.py` 重新安装
 - 玩家模型：`voxsoul_tarnished.b3d` + CC0 骑士皮肤（isaiah658 / OpenGameArt Skin_27），可用 `python tools/install_player_model.py` 重新安装
 - UI 纹理：`python tools/gen_ui_textures.py`；敌人/Boss 精灵：`python tools/gen_entity_sprites.py`
-- 自主迭代 loop 配置：`.superpowers/loop.md`（当前 polish-only，~85% 代码完成度）
-- 详见 `docs/superpowers/specs/2026-07-01-voxsoul-elden-design.md`
+- 自主迭代 loop：`.superpowers/loop-limgrave.md`（Limgrave→Godrick，3s wake）
+- 设计 spec：`docs/superpowers/specs/2026-07-01-voxsoul-limgrave-godrick-loop-design.md`
 
 ## 同人项目声明
 

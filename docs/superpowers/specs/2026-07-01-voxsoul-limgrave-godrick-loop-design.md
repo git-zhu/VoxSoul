@@ -1,7 +1,7 @@
 # VoxSoul — 宁姆格福→史东薇尔→葛瑞克 Loop 迭代设计
 
 **日期**：2026-07-01  
-**状态**：Draft（待用户审阅）  
+**状态**：Approved  
 **前置**：`2026-07-01-voxsoul-elden-design.md`（Approved）、`2026-07-01-voxsoul-elden-roadmap.md`（Phase C–E 完成）  
 **Loop 配置**：`.superpowers/loop-limgrave.md`
 

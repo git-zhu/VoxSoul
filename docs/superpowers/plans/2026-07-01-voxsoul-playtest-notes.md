@@ -79,6 +79,32 @@
 
 **Combined Sprint A+B+C–E:** 32/43 ≈ **74%** code-verified overall.
 
+---
+
+## Phase F — Limgrave → Godrick（2026-07-01）
+
+**Build:** map v4 Stormveil slice, Godrick boss, Chinese graces/lore, loop-limgrave
+
+### Code verified
+
+- [x] `MAP_VERSION=4` 史东薇尔城门/城庭/侧廊/大厅
+- [x] 5 赐福中文名（含 stormveil_side / stormveil_hall）
+- [x] 接肢葛瑞克 `godrick` 二阶段 + phase_message
+- [x] `grafted_hag` 退役；通关 UI 大卢恩
+- [x] lore_sign ×3（右键中文环境文本）
+- [x] 城庭/侧廊/大厅敌人部署
+- [x] headless 全 mod 测试 pass
+
+### Manual checklist（验收）
+
+- [ ] 玛尔基特 → 史东薇尔城门路线可步行
+- [x] 侧路赐福可激活（代码路径）
+- [ ] 葛瑞克二阶段闪屏 + 龙焰招式
+- [ ] 三 Boss 链可击败（大树守卫可选）
+- [ ] 击败葛瑞克显示 DEMO COMPLETE + 大卢恩文案
+
+**Phase F checklist:** 5/10 code-verified; **~86%** 含 prior sprints 加权估算。
+
 **Build:** statbar HUD, lockon marker, semantic combat animations
 
 ### Code verified
