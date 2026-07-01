@@ -18,6 +18,24 @@ minetest.register_on_joinplayer(function(player, last_login)
     })
 end)
 
+minetest.register_on_punchnode(function(pos, node, puncher, pointed_thing)
+    if puncher and puncher:is_player() then
+        return true
+    end
+end)
+
+minetest.register_on_mods_loaded(function()
+    for name in pairs(minetest.registered_items) do
+        minetest.override_item(name, {
+            on_place = function(itemstack, placer, pointed_thing)
+                if placer and placer:is_player() then
+                    return itemstack
+                end
+            end,
+        })
+    end
+end)
+
 minetest.register_on_dignode(function(pos, oldnode, digger)
     if digger and digger:is_player() then
         return true
