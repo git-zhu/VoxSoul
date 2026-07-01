@@ -1,8 +1,31 @@
 local hud_ids = {}
+local stamina_blink = {}
+local STAMINA_BAR_MAX = 20
+local HP_BAR_MAX = 20
 
-local function bar(width, pct)
-    local filled = math.floor(width * math.max(0, math.min(1, pct)))
-    return string.rep("#", filled) .. string.rep("-", width - filled)
+local function statbar_count(current, maximum, bar_max)
+    if maximum <= 0 then
+        return 0, bar_max
+    end
+    return math.ceil(bar_max * current / maximum), bar_max
+end
+
+local function stamina_display(name, d, st_num)
+    if not voxsoul.combat.stamina.is_exhausted(d.stamina, d.max_stamina) then
+        stamina_blink[name] = nil
+        return st_num
+    end
+    local now = minetest.get_gametime()
+    local blink = stamina_blink[name] or { last = now, visible = true }
+    if now - blink.last >= 0.5 then
+        blink.last = now
+        blink.visible = not blink.visible
+    end
+    stamina_blink[name] = blink
+    if blink.visible then
+        return st_num
+    end
+    return 0
 end
 
 function voxsoul.ui.update_player_hud(player)
@@ -10,56 +33,65 @@ function voxsoul.ui.update_player_hud(player)
     local d = voxsoul.combat.ensure_data(player)
     hud_ids[name] = hud_ids[name] or {}
     local ids = hud_ids[name]
-    local hp_pct = d.hp / d.max_hp
-    local st_pct = d.stamina / d.max_stamina
+
+    local hp_num, hp_bg = statbar_count(d.hp, d.max_hp, HP_BAR_MAX)
+    local st_num, st_bg = statbar_count(d.stamina, d.max_stamina, STAMINA_BAR_MAX)
+    st_num = stamina_display(name, d, st_num)
+
     local runes = voxsoul.player and voxsoul.player.get_runes(player) or 0
-    local text = string.format("HP %s\nST %s\nRunes: %d", bar(16, hp_pct), bar(16, st_pct), runes)
-    if not ids.main then
-        ids.main = player:hud_add({
+
+    if not ids.hp then
+        ids.hp = player:hud_add({
+            type = "statbar",
+            position = { x = 0.02, y = 0.90 },
+            offset = { x = 4, y = 0 },
+            size = { x = 16, y = 16 },
+            text = "voxsoul_hp.png",
+            text2 = "voxsoul_hp_bg.png",
+            number = hp_num,
+            item = hp_bg,
+            direction = 0,
+            z_index = 100,
+        })
+        ids.stamina = player:hud_add({
+            type = "statbar",
+            position = { x = 0.02, y = 0.94 },
+            offset = { x = 4, y = 0 },
+            size = { x = 16, y = 16 },
+            text = "voxsoul_stamina.png",
+            text2 = "voxsoul_stamina_bg.png",
+            number = st_num,
+            item = st_bg,
+            direction = 0,
+            z_index = 100,
+        })
+        ids.runes = player:hud_add({
             type = "text",
-            position = { x = 0.02, y = 0.85 },
+            position = { x = 0.75, y = 0.90 },
             offset = { x = 0, y = 0 },
-            scale = { x = 100, y = 100 },
-            text = text,
-            number = 0xFFFFFF,
+            scale = { x = 120, y = 120 },
+            text = "Runes: " .. runes,
+            number = 0xFFD700,
+            z_index = 100,
         })
     else
-        player:hud_change(ids.main, "text", text)
+        player:hud_change(ids.hp, "number", hp_num)
+        player:hud_change(ids.stamina, "number", st_num)
+        player:hud_change(ids.runes, "text", "Runes: " .. runes)
     end
 end
 
-local boss_huds = {}
-
-function voxsoul.ui.show_boss_bar(boss_id, boss_name, hp, max_hp)
-    for _, player in ipairs(minetest.get_connected_players()) do
-        local pname = player:get_player_name()
-        boss_huds[pname] = boss_huds[pname] or {}
-        if boss_huds[pname][boss_id] then
-            player:hud_change(boss_huds[pname][boss_id], "text",
-                boss_name .. "\n" .. bar(24, hp / max_hp))
-        else
-            boss_huds[pname][boss_id] = player:hud_add({
-                type = "text",
-                name = "voxsoul_boss_" .. boss_id,
-                position = { x = 0.5, y = 0.05 },
-                offset = { x = -100, y = 0 },
-                alignment = { x = 0, y = 0 },
-                scale = { x = 150, y = 150 },
-                text = boss_name .. "\n" .. bar(24, hp / max_hp),
-                number = 0xFF4444,
-            })
-        end
+function voxsoul.ui.clear_player_hud(player)
+    local name = player:get_player_name()
+    local ids = hud_ids[name]
+    if not ids then
+        return
     end
-end
-
-function voxsoul.ui.hide_boss_bar(boss_id)
-    for _, player in ipairs(minetest.get_connected_players()) do
-        local pname = player:get_player_name()
-        if boss_huds[pname] and boss_huds[pname][boss_id] then
-            player:hud_remove(boss_huds[pname][boss_id])
-            boss_huds[pname][boss_id] = nil
-        end
+    for _, id in pairs(ids) do
+        player:hud_remove(id)
     end
+    hud_ids[name] = nil
+    stamina_blink[name] = nil
 end
 
 function voxsoul.ui.show_death(player, lost, grace_name)
