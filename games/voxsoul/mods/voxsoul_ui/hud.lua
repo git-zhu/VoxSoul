@@ -40,6 +40,7 @@ function voxsoul.ui.update_player_hud(player)
     st_num = stamina_display(name, d, st_num)
 
     local runes = voxsoul.player and voxsoul.player.get_runes(player) or 0
+    local loadout = voxsoul.items and voxsoul.items.get_loadout_text(player) or ""
     local hp_text = string.format("HP %d/%d", math.floor(d.hp), math.floor(d.max_hp))
     local st_text = string.format("ST %d/%d", math.floor(d.stamina), math.floor(d.max_stamina))
 
@@ -77,6 +78,15 @@ function voxsoul.ui.update_player_hud(player)
             number = 0xFFD700,
             z_index = 100,
         })
+        ids.loadout = player:hud_add({
+            type = "text",
+            position = { x = 0.75, y = 0.94 },
+            offset = { x = 0, y = 0 },
+            scale = { x = 100, y = 100 },
+            text = loadout,
+            number = 0xC8B890,
+            z_index = 100,
+        })
         ids.hp_text = player:hud_add({
             type = "text",
             position = { x = 0.02, y = 0.86 },
@@ -99,6 +109,9 @@ function voxsoul.ui.update_player_hud(player)
         player:hud_change(ids.hp, "number", hp_num)
         player:hud_change(ids.stamina, "number", st_num)
         player:hud_change(ids.runes, "text", "Runes: " .. runes)
+        if ids.loadout then
+            player:hud_change(ids.loadout, "text", loadout)
+        end
         player:hud_change(ids.hp_text, "text", hp_text)
         player:hud_change(ids.st_text, "text", st_text)
     end
@@ -119,16 +132,21 @@ end
 
 function voxsoul.ui.show_death(player, lost, grace_name)
     minetest.show_formspec(player:get_player_name(), "voxsoul:death",
-        "size[8,4]label[0,0;YOU DIED]label[0,1;Lost runes: " .. lost .. "]label[0,2;Revive at: " .. grace_name .. "]")
+        "size[10,5;true]" ..
+        "bgcolor[#120e0c;true]" ..
+        "label[0,0.5;YOU DIED]" ..
+        "label[0,1.8;Runes lost: " .. lost .. "]" ..
+        "label[0,2.8;Revive at: " .. grace_name .. "]")
 end
 
 function voxsoul.ui.show_demo_clear(player)
     local d = voxsoul.player and voxsoul.player.data[player:get_player_name()]
     local runes = d and d.runes or 0
     minetest.show_formspec(player:get_player_name(), "voxsoul:demo_clear",
-        "size[10,5]label[0,0;DEMO COMPLETE]" ..
-        "label[0,1;You have conquered the Limgrave Fragment.]" ..
-        "label[0,2;Runes held: " .. runes .. "]" ..
-        "label[0,3;Rest at Grace to continue exploring.]" ..
-        "button[3,4;4,1;ok;Continue]")
+        "size[10,5;true]" ..
+        "bgcolor[#120e0c;true]" ..
+        "label[0,0.5;DEMO COMPLETE]" ..
+        "label[0,1.5;You have conquered the Limgrave Fragment.]" ..
+        "label[0,2.5;Runes held: " .. runes .. "]" ..
+        "button[3,3.5;4,1;ok;Continue]")
 end

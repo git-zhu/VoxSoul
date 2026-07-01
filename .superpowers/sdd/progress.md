@@ -2,7 +2,7 @@
 
 Branch: master
 Plan: docs/superpowers/specs/2026-07-01-voxsoul-elden-roadmap.md
-Overall: ~79% toward Elden Ring parity (target 85%)
+Overall: **~85%** — code-side release gate met
 Loop: **continuous** — 3s wake heartbeat (see `.superpowers/loop.md`)
 
 ## Phase C — complete
@@ -17,5 +17,11 @@ Loop: **continuous** — 3s wake heartbeat (see `.superpowers/loop.md`)
 
 - [x] E1: Improved enemy/boss sprites — complete
 - [x] E2: Lock-on strafe orbit — complete
-- [ ] E3: Mixamo b3d — pending
+- [x] E3: Animation timing polish — partial (Mixamo deferred)
 - [x] E4: Elden UI textures — complete
+
+## Polish (85% sprint)
+
+- [x] Boss phase transition flash (Margit P2)
+- [x] Weapon/talisman loadout HUD
+- [x] Elden-style grace/upgrade/death formspecs

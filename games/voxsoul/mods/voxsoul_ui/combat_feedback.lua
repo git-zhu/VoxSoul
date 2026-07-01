@@ -6,6 +6,7 @@ local MESSAGES = {
     block = { text = "BLOCK", color = 0xC8D0E0, overlay_tex = "voxsoul_flash_gold.png", overlay = 0x88FFFFFF },
     parry = { text = "PARRY!", color = 0xFFD700, overlay_tex = "voxsoul_flash_gold.png", overlay = 0xCCFFFFFF },
     guardbreak = { text = "GUARD BROKEN", color = 0xFF8800, overlay_tex = "voxsoul_flash_red.png", overlay = 0xBBFFFFFF },
+    boss_phase = { text = "", color = 0xFFD700, overlay_tex = "voxsoul_flash_gold.png", overlay = 0xAAFFFFFF },
 }
 
 function voxsoul.ui.combat_flash(player, kind, duration)

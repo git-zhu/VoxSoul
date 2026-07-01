@@ -115,12 +115,13 @@ end
 
 function voxsoul.player.open_upgrade_menu(player)
     local d = voxsoul.player.data[player:get_player_name()]
-    local form = "size[6,7]label[0,0;Upgrade - Runes: " .. d.runes .. "]"
+    local form = "size[7,7;true]bgcolor[#120e0c;true]label[0,0;Level Up — Runes: " .. d.runes .. "]"
     local y = 1
+    local labels = { vigor = "Vigor", endurance = "Endurance", strength = "Strength", dexterity = "Dexterity" }
     for _, stat in ipairs({ "vigor", "endurance", "strength", "dexterity" }) do
         local lv = d.stats[stat]
         local cost = voxsoul.player.stats.upgrade_cost(lv + 1)
-        form = form .. string.format("label[0,%f;%s Lv.%d next:%d]", y, stat, lv, cost)
+        form = form .. string.format("label[0,%f;%s Lv.%d  (next: %d runes)]", y, labels[stat], lv, cost)
         form = form .. string.format("button[4,%f;2,0.8;up_%s;+]", y, stat)
         y = y + 1
     end

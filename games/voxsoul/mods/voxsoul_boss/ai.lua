@@ -1,13 +1,18 @@
 local M = {}
 
 function M.get_phase(def, hp_ratio)
-    local phase = def.phases[1]
-    for _, p in ipairs(def.phases) do
+    local _, phase = M.get_phase_index(def, hp_ratio)
+    return phase
+end
+
+function M.get_phase_index(def, hp_ratio)
+    local idx = 1
+    for i, p in ipairs(def.phases) do
         if hp_ratio <= p.threshold then
-            phase = p
+            idx = i
         end
     end
-    return phase
+    return idx, def.phases[idx]
 end
 
 function M.pick_attack(weights, last_attack)

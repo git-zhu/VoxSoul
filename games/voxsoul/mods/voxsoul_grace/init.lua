@@ -33,7 +33,7 @@ end
 
 function voxsoul.grace.open_travel_menu(player)
     local d = voxsoul.player.data[player:get_player_name()]
-    local form = "size[6,6]label[0,0;Travel]"
+    local form = "size[6,6;true]bgcolor[#120e0c;true]label[0,0;Travel — Sites of Grace]"
     local y = 1
     for id, site in pairs(voxsoul.grace.sites) do
         if d.graces[id] then
@@ -46,7 +46,7 @@ function voxsoul.grace.open_travel_menu(player)
 end
 
 function voxsoul.grace.open_menu(player, grace_id)
-    local form = "size[6,6]label[0,0;Grace Site]" ..
+    local form = "size[6,6;true]bgcolor[#120e0c;true]label[0,0;Site of Grace]" ..
         "button[0,1;6,1;rest;Rest]" ..
         "button[0,2;6,1;level;Level Up]" ..
         "button[0,3;6,1;travel;Travel]" ..

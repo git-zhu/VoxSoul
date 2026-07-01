@@ -87,7 +87,7 @@ minetest.register_entity("voxsoul_boss:entity", {
                 visual_size = def.visual_size or { x = 2, y = 3 },
             })
         end
-        self.brain = { state = "idle", timer = 0, last_attack = nil, phase = 1 }
+        self.brain = { state = "idle", timer = 0, last_attack = nil, phase_idx = 1 }
     end,
     get_staticdata = function(self)
         return self.boss_id or ""
@@ -123,8 +123,17 @@ local DEAGGRO_TIME = 5
 
         self.brain.timer = self.brain.timer - dtime
         local hp_ratio = self.hp / self.max_hp
-        local phase = voxsoul.boss.ai.get_phase(def, hp_ratio)
+        local phase_idx, phase = voxsoul.boss.ai.get_phase_index(def, hp_ratio)
         local display_name = def.name .. (phase.name_suffix or "")
+        if phase_idx ~= (self.brain.phase_idx or 1) then
+            self.brain.phase_idx = phase_idx
+            for _, pl in ipairs(minetest.get_connected_players()) do
+                minetest.chat_send_player(pl:get_player_name(), display_name)
+                if voxsoul.ui and voxsoul.ui.combat_flash then
+                    voxsoul.ui.combat_flash(pl, "boss_phase", 0.8)
+                end
+            end
+        end
         voxsoul.ui.show_boss_bar(self.boss_id, display_name, self.hp, self.max_hp)
 
         if self.brain.state == "attack" then
@@ -200,4 +209,8 @@ local DEAGGRO_TIME = 5
 })
 
 assert(voxsoul.boss.ai.pick_attack({ a = 1, b = 1 }, nil) ~= nil)
+local idx = voxsoul.boss.ai.get_phase_index({ phases = { { threshold = 1.0 }, { threshold = 0.5 } } }, 0.4)
+assert(idx == 2, "phase 2 below 50% hp")
+idx = voxsoul.boss.ai.get_phase_index({ phases = { { threshold = 1.0 }, { threshold = 0.5 } } }, 0.8)
+assert(idx == 1, "phase 1 above 50% hp")
 minetest.log("action", "[voxsoul_boss] ai tests passed")

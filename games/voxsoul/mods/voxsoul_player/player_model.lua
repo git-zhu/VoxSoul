@@ -116,9 +116,9 @@ local COMBAT_ANIM = {
     lay = { name = "lay", speed = 30, loop = false },
     hitstun = { name = "hitstun", speed = 10, loop = false },
     guardbreak = { name = "guardbreak", speed = 20, loop = false },
-    attack_light = { name = "attack_light", speed = 40, loop = false },
-    attack_heavy = { name = "attack_heavy", speed = 30, loop = false },
-    dodge = { name = "dodge", speed = 60, loop = false },
+    attack_light = { name = "attack_light", speed = 80, loop = false },
+    attack_heavy = { name = "attack_heavy", speed = 50, loop = false },
+    dodge = { name = "dodge", speed = 65, loop = false },
     block = { name = "block", speed = 15, loop = true },
 }
 
