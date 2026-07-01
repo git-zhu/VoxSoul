@@ -1,0 +1,28 @@
+
+
+-------------
+  Separator
+-------------
+
+2026-07-01 13:36:43: WARNING[ServerStart]: /!\ You are using the old mod storage files backend. This backend is deprecated and may be removed in a future release /!\
+2026-07-01 13:36:43: WARNING[ServerStart]: Switching to SQLite3 is advised, please read https://docs.luanti.org/for-server-hosts/database-backends.
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_core] Loading VoxSoul 0.1.0-dev
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_entity] hitbox tests passed
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_combat] stamina/state tests passed
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_player] stats tests passed
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_boss] ai tests passed
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_tests] core tests passed
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_tests] camera tests passed
+2026-07-01 13:36:43: ACTION[ServerStart]: [voxsoul_tests] integration smoke passed
+2026-07-01 13:36:43: WARNING[ServerStart]: /!\ You are using old player file backend. This backend is deprecated and will be removed in a future release /!\
+2026-07-01 13:36:43: WARNING[ServerStart]: Switching to SQLite3 or PostgreSQL is advised, please read https://docs.luanti.org/for-server-hosts/database-backends.
+2026-07-01 13:36:43: WARNING[ServerStart]: /!\ You are using old auth file backend. This backend is deprecated and will be removed in a future release /!\
+2026-07-01 13:36:43: WARNING[ServerStart]: Switching to SQLite3 is advised, please read https://docs.luanti.org/for-server-hosts/database-backends.
+2026-07-01 13:36:43: ACTION[ServerStart]: World at [d:\Z\game\VoxSoul\games\voxsoul\worlds\demo_interlude]
+2026-07-01 13:36:43: ACTION[ServerStart]: Server for gameid="voxsoul" listening on [::]:30000.
+2026-07-01 13:36:43: ACTION[Server]: Tarnished [::ffff:127.0.0.1] joins game. List of players: Tarnished
+2026-07-01 13:36:43: ACTION[Main]: CHAT: # Server: version: 5.16.1 | game: VoxSoul | uptime: 0s | max lag: 0.136s | clients: Tarnished
+2026-07-01 13:36:43: ACTION[Main]: CHAT: *** Tarnished joined the game.
+2026-07-01 13:36:44: ACTION[Server]: [voxsoul_spawn] player at (0,21,0) floor node=voxsoul_world:grass
+2026-07-01 13:37:00: ACTION[Server]: Tarnished leaves game. List of players: 
+2026-07-01 13:37:00: ACTION[ServerStop]: Server: Shutting down

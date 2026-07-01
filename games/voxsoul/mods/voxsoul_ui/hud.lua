@@ -146,7 +146,7 @@ function voxsoul.ui.show_demo_clear(player)
         "size[10,5;true]" ..
         "bgcolor[#120e0c;true]" ..
         "label[0,0.5;DEMO COMPLETE]" ..
-        "label[0,1.5;You have conquered the Limgrave Fragment.]" ..
+        "label[0,1.5;接肢葛瑞克已倒下。葛瑞克的大卢恩已入手。]" ..
         "label[0,2.5;Runes held: " .. runes .. "]" ..
         "button[3,3.5;4,1;ok;Continue]")
 end

@@ -73,11 +73,23 @@ def rune_pile(draw, w, h) -> None:
     draw.text((13, 24), "R", fill=(80, 50, 10, 255))
 
 
+def godrick(draw, w, h) -> None:
+    # Godrick — golden axe + bulky grafted body
+    draw.rectangle((10, 6, 21, 14), fill=(140, 110, 70, 255))
+    draw.rectangle((11, 14, 20, 32), fill=(100, 75, 50, 255))
+    draw.rectangle((8, 16, 10, 28), fill=(90, 65, 45, 255))
+    draw.rectangle((21, 16, 23, 28), fill=(90, 65, 45, 255))
+    draw.line((24, 10, 30, 24), fill=(180, 160, 120, 255), width=2)
+    draw.rectangle((12, 32, 19, 44), fill=(80, 58, 40, 255))
+    draw.polygon([(14, 8), (16, 4), (18, 9)], fill=(200, 60, 40, 255))
+
+
 save_sprite("voxsoul_world/textures/voxsoul_enemy_knight.png", knight)
 save_sprite("voxsoul_world/textures/voxsoul_enemy_omen.png", omen_freak)
 save_sprite("voxsoul_world/textures/voxsoul_rune.png", rune_pile)
 save_sprite("voxsoul_boss/textures/voxsoul_boss_tree_sentinel.png", tree_sentinel)
 save_sprite("voxsoul_boss/textures/voxsoul_boss_margit.png", margit)
+save_sprite("voxsoul_boss/textures/voxsoul_boss_godrick.png", godrick)
 save_sprite("voxsoul_boss/textures/voxsoul_boss_grafted_hag.png", grafted_hag)
 # legacy fallback
 save_sprite("voxsoul_world/textures/voxsoul_enemy.png", knight)

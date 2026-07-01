@@ -6,7 +6,16 @@ local DARK = "voxsoul_world:dark_brick"
 local GOLD = "voxsoul_world:gold_trim"
 local LIGHT = "voxsoul_world:spawn_light"
 local TUTORIAL = "voxsoul_world:tutorial_sign"
+local LORE = "voxsoul_world:lore_sign"
 local GRACE = "voxsoul_grace:site"
+
+local function set_lore_sign(pos, text)
+    minetest.set_node(pos, { name = LORE })
+    local meta = minetest.get_meta(pos)
+    if meta then
+        meta:set_string("text", text)
+    end
+end
 
 local function set_box(p1, p2, node)
     for x = p1.x, p2.x do
@@ -71,7 +80,7 @@ local function build_stormveil_gate()
     set_box(vector.new(183, FLOOR_Y + 1, -6), vector.new(197, FLOOR_Y + 8, 6), BRICK)
     set_box(vector.new(186, FLOOR_Y + 1, -3), vector.new(194, FLOOR_Y + 6, 3), "air")
     minetest.set_node(vector.new(185, FLOOR_Y, 0), { name = GOLD })
-    minetest.set_node(vector.new(190, FLOOR_Y + 1, 0), { name = TUTORIAL })
+    set_lore_sign(vector.new(190, FLOOR_Y + 1, 0), "史东薇尔城——恶兆妖鬼把守的雾墙之后，接肢的半王等待挑战者。")
 end
 
 local function build_stormveil_courtyard()
@@ -86,6 +95,7 @@ local function build_stormveil_side_path()
     set_box(vector.new(203, FLOOR_Y + 1, -36), vector.new(225, FLOOR_Y + 4, -14), DARK)
     set_box(vector.new(206, FLOOR_Y + 1, -33), vector.new(222, FLOOR_Y + 3, -17), "air")
     minetest.set_node(vector.new(210, FLOOR_Y, -25), { name = GRACE })
+    set_lore_sign(vector.new(212, FLOOR_Y + 1, -20), "侧室赐福——许多褪色者在此稍作喘息，再向接肢大厅进发。")
 end
 
 local function build_stormveil_hall()
@@ -94,7 +104,7 @@ local function build_stormveil_hall()
     set_box(vector.new(232, FLOOR_Y + 1, 4), vector.new(258, FLOOR_Y + 5, 26), "air")
     set_box(vector.new(250, FLOOR_Y + 1, 10), vector.new(255, FLOOR_Y + 4, 20), GOLD)
     minetest.set_node(vector.new(235, FLOOR_Y, 8), { name = GRACE })
-    minetest.set_node(vector.new(255, FLOOR_Y + 1, 15), { name = TUTORIAL })
+    set_lore_sign(vector.new(255, FLOOR_Y + 1, 15), "接肢葛瑞克——宁姆格福的半王。击败他，取得大卢恩。")
 end
 
 local function build_road_to_stormveil()

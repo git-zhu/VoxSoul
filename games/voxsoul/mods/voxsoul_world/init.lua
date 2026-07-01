@@ -178,8 +178,8 @@ minetest.register_on_joinplayer(function(player)
         if not voxsoul.boss.is_defeated("margit") then
             voxsoul.boss.spawn("margit", vector.new(160, sy, 0))
         end
-        if not voxsoul.boss.is_defeated("grafted_hag") then
-            voxsoul.boss.spawn("grafted_hag", vector.new(255, sy, 15))
+        if not voxsoul.boss.is_defeated("godrick") then
+            voxsoul.boss.spawn("godrick", vector.new(255, sy, 15))
         end
     end)
 end)

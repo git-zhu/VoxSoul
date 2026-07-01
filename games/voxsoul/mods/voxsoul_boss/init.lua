@@ -8,7 +8,7 @@ function voxsoul.boss.register(def)
     voxsoul.boss.registry[def.id] = def
 end
 
-for _, name in ipairs({ "tree_sentinel", "margit", "grafted_hag" }) do
+for _, name in ipairs({ "tree_sentinel", "margit", "godrick" }) do
     voxsoul.boss.register(dofile(modpath .. "/bosses/" .. name .. ".lua"))
 end
 
@@ -30,8 +30,11 @@ function voxsoul.boss.on_defeated(boss_id, player)
     if boss_id == "margit" then
         voxsoul.grace.unlock(player, "after_margit")
     end
-    if boss_id == "grafted_hag" and voxsoul.ui and voxsoul.ui.show_demo_clear then
-        voxsoul.ui.show_demo_clear(player)
+    if boss_id == "godrick" then
+        voxsoul.set_string("voxsoul:great_rune:godrick", "1")
+        if voxsoul.ui and voxsoul.ui.show_demo_clear then
+            voxsoul.ui.show_demo_clear(player)
+        end
     end
     voxsoul.ui.hide_boss_bar(boss_id)
 end
@@ -127,8 +130,9 @@ local DEAGGRO_TIME = 5
         local display_name = def.name .. (phase.name_suffix or "")
         if phase_idx ~= (self.brain.phase_idx or 1) then
             self.brain.phase_idx = phase_idx
+            local msg = def.phase_message or display_name
             for _, pl in ipairs(minetest.get_connected_players()) do
-                minetest.chat_send_player(pl:get_player_name(), display_name)
+                minetest.chat_send_player(pl:get_player_name(), msg)
                 if voxsoul.ui and voxsoul.ui.combat_flash then
                     voxsoul.ui.combat_flash(pl, "boss_phase", 0.8)
                 end
@@ -208,7 +212,8 @@ local DEAGGRO_TIME = 5
     end,
 })
 
-assert(voxsoul.boss.ai.pick_attack({ a = 1, b = 1 }, nil) ~= nil)
+assert(voxsoul.boss.registry.godrick, "godrick boss must exist")
+assert(voxsoul.boss.registry.godrick.name == "接肢葛瑞克")
 local idx = voxsoul.boss.ai.get_phase_index({ phases = { { threshold = 1.0 }, { threshold = 0.5 } } }, 0.4)
 assert(idx == 2, "phase 2 below 50% hp")
 idx = voxsoul.boss.ai.get_phase_index({ phases = { { threshold = 1.0 }, { threshold = 0.5 } } }, 0.8)
