@@ -17,4 +17,9 @@ assert(dodge.is_in_iframes(0.05, 0.6) == false)
 assert(dodge.is_in_iframes(0.2, 0.6) == true)
 assert(dodge.is_in_iframes(0.55, 0.6) == false)
 
+local strafe = voxsoul.combat.compute_strafe_move({ x = 0, y = 0, z = 10 }, { up = true })
+assert(strafe and strafe.z > 0.9, "lock strafe forward should face target")
+strafe = voxsoul.combat.compute_strafe_move({ x = 10, y = 0, z = 0 }, { left = true })
+assert(strafe and strafe.z > 0.5, "lock strafe left should be tangent")
+
 minetest.log("action", "[voxsoul_combat] stamina/state tests passed")

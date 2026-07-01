@@ -154,6 +154,10 @@ minetest.register_globalstep(function(dt)
         end
         voxsoul.core.apply_physics(player, { speed = speed, jump = jump })
         voxsoul.combat.update_lockon_facing(player)
+        if data.state ~= "dodging" and data.state ~= "hitstun" and data.state ~= "guardbreak"
+            and (data.hitstop_timer or 0) <= 0 then
+            voxsoul.combat.update_lockon_strafe(player, dt, speed)
+        end
 
         if data.hp <= 0 and data.state ~= "dead" then
             data.state = "dead"
