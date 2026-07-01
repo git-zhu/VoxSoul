@@ -68,9 +68,10 @@ function voxsoul.combat.apply_damage_to_player(player, damage, poise_damage, att
         voxsoul.combat.state.force_state(data, "hitstun")
         data.hitstun_timer = damage >= 40 and 0.5 or 0.2
     end
-    if data.hp <= 0 and voxsoul.player then
-        voxsoul.player.on_death(player)
+    if data.hp <= 0 then
+        data.state = "dead"
     end
+    voxsoul.combat.sync_engine_hp(player)
 end
 
 function voxsoul.combat.resolve_attack_hit(player, atk)

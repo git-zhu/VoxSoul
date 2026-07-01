@@ -49,3 +49,17 @@ end
 function voxsoul.combat.clear_lockon(player)
     lock_targets[player:get_player_name()] = nil
 end
+
+function voxsoul.combat.update_lockon_facing(player)
+    local target = voxsoul.combat.get_lock_target(player)
+    if not target then
+        return
+    end
+    local pos = player:get_pos()
+    local tpos = target:get_pos()
+    if not tpos then
+        return
+    end
+    local yaw = minetest.dir_to_yaw(vector.direction(pos, tpos))
+    player:set_look_horizontal(yaw)
+end

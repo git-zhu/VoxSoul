@@ -10,6 +10,12 @@ dofile(modpath .. "/lockon.lua")
 
 local player_data = {}
 
+function voxsoul.combat.sync_engine_hp(player)
+    local data = voxsoul.combat.ensure_data(player)
+    local shown = math.max(1, math.min(20, math.ceil(20 * data.hp / data.max_hp)))
+    player:set_hp(shown)
+end
+
 function voxsoul.combat.ensure_data(player)
     local name = player:get_player_name()
     if not player_data[name] then
@@ -49,11 +55,16 @@ function voxsoul.combat.refresh_stats(player)
     data.stamina = math.min(data.stamina, data.max_stamina)
 end
 
+minetest.register_on_player_hpchange(function(player, hp_change)
+    return true
+end)
+
 minetest.register_on_joinplayer(function(player)
     voxsoul.combat.ensure_data(player)
     minetest.after(0, function()
         if player:is_player() then
             voxsoul.combat.refresh_stats(player)
+            voxsoul.combat.sync_engine_hp(player)
         end
     end)
 end)
@@ -128,7 +139,18 @@ minetest.register_globalstep(function(dt)
         elseif data.blocking or data.state == "blocking" then
             speed = 0.5
         end
-        player:set_physics_override({ speed = speed, jump = 0, gravity = 1.0 })
+        voxsoul.core.apply_physics(player, { speed = speed })
+        voxsoul.combat.update_lockon_facing(player)
+
+        if data.hp <= 0 and data.state ~= "dead" then
+            data.state = "dead"
+            if voxsoul.player then
+                voxsoul.player.on_death(player)
+            end
+        elseif data.hp > 0 and data.state == "dead" then
+            data.state = "idle"
+        end
+        voxsoul.combat.sync_engine_hp(player)
     end
 end)
 

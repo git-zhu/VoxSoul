@@ -3,11 +3,10 @@ voxsoul.world._edge = {}
 voxsoul.world.enemy_spawns = {}
 
 local modpath = minetest.get_modpath("voxsoul_world")
+dofile(modpath .. "/constants.lua")
 dofile(modpath .. "/nodes.lua")
 dofile(modpath .. "/map_builder.lua")
 dofile(modpath .. "/spawn.lua")
-
-local SPAWN_Y = 11
 
 function voxsoul.world.respawn_enemies()
     for _, spawn in ipairs(voxsoul.world.enemy_spawns) do
@@ -100,36 +99,37 @@ local function register_spawn(pos, name)
 end
 
 minetest.register_on_mods_loaded(function()
-    register_spawn(vector.new(50, SPAWN_Y, 5), "voxsoul_world:knight")
-    register_spawn(vector.new(55, SPAWN_Y, -5), "voxsoul_world:knight")
-    register_spawn(vector.new(210, 6, 45), "voxsoul_world:omen_freak")
-    register_spawn(vector.new(215, 6, 50), "voxsoul_world:omen_freak")
-    register_spawn(vector.new(220, 6, 55), "voxsoul_world:omen_freak")
+    local sy = voxsoul.world.spawn_y()
+    register_spawn(vector.new(50, sy, 5), "voxsoul_world:knight")
+    register_spawn(vector.new(55, sy, -5), "voxsoul_world:knight")
+    register_spawn(vector.new(210, sy, 45), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(215, sy, 50), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(220, sy, 55), "voxsoul_world:omen_freak")
+end)
+
+minetest.register_on_mods_loaded(function()
+    voxsoul.world.ensure_map()
+end)
+
+minetest.register_on_respawnplayer(function(player)
+    if voxsoul.world then
+        voxsoul.world.setup_player(player)
+    end
 end)
 
 minetest.register_on_joinplayer(function(player)
-    minetest.after(0, function()
-        if not player:is_player() then
-            return
-        end
-        voxsoul.world.setup_player(player)
-        minetest.after(0.3, function()
-            if player:is_player() and voxsoul.camera then
-                voxsoul.camera.apply(player)
-            end
-        end)
-    end)
     minetest.after(1, function()
         if not player:is_player() then return end
         voxsoul.world.respawn_enemies()
+        local sy = voxsoul.world.spawn_y()
         if not voxsoul.boss.is_defeated("tree_sentinel") then
-            voxsoul.boss.spawn("tree_sentinel", vector.new(80, SPAWN_Y, 0))
+            voxsoul.boss.spawn("tree_sentinel", vector.new(80, sy, 0))
         end
         if not voxsoul.boss.is_defeated("margit") then
-            voxsoul.boss.spawn("margit", vector.new(160, SPAWN_Y, 0))
+            voxsoul.boss.spawn("margit", vector.new(160, sy, 0))
         end
         if not voxsoul.boss.is_defeated("grafted_hag") then
-            voxsoul.boss.spawn("grafted_hag", vector.new(230, 6, 50))
+            voxsoul.boss.spawn("grafted_hag", vector.new(230, sy, 50))
         end
     end)
 end)
@@ -143,7 +143,7 @@ minetest.register_node("voxsoul_world:tutorial_sign", {
     on_rightclick = function(pos, node, clicker)
         if clicker:is_player() then
             minetest.chat_send_player(clicker:get_player_name(),
-                "LMB=light attack | Shift+LMB=heavy | RMB=block | Space+dodge | E=grace | Q=lock-on")
+                "LMB=light attack | Shift+LMB=heavy | RMB=block | Space+dodge | E=grace | Z=lock-on")
         end
     end,
 })
@@ -172,11 +172,15 @@ minetest.register_globalstep(function()
         if ctrl.aux1 and not edge.aux1 then
             voxsoul.grace.try_interact(player)
         end
+        if ctrl.zoom and not edge.zoom then
+            voxsoul.combat.toggle_lockon(player)
+        end
 
         edge.dig = ctrl.dig
         edge.place = ctrl.place
         edge.jump = ctrl.jump
         edge.aux1 = ctrl.aux1
+        edge.zoom = ctrl.zoom
         voxsoul.world._edge[pname] = edge
     end
 end)

@@ -1,7 +1,14 @@
 # Luanti portable runtime (download via README)
 tools/luanti/
 tools/*.zip
+tools/minetest_textures/
+tools/minetest_textures.zip
+tools/minetest_skins_pack_1/
+tools/minetest_skins_pack_1.zip
 tools/luanti-server.log
+tools/luanti-server-test.log
+tools/luanti-client.log
+tools/luanti-client2.log
 
 # World runtime data
 games/voxsoul/worlds/*/map.sqlite
@@ -11,6 +18,8 @@ games/voxsoul/worlds/*/env_meta.txt
 games/voxsoul/worlds/*/map_meta.txt
 games/voxsoul/worlds/*/force_loaded.txt
 games/voxsoul/worlds/*/ipban.txt
+games/voxsoul/worlds/*/players/
+games/voxsoul/worlds/*/auth.txt
 
 # SDD scratch
 .superpowers/sdd/*.diff

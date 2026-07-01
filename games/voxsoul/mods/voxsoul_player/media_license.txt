@@ -1,0 +1,13 @@
+VoxSoul player model media
+===========================
+
+voxsoul_tarnished.b3d
+  Based on Minetest Game character.b3d (MirceaKitsune et al., CC BY-SA 3.0)
+  Source: https://github.com/minetest-game/player_api
+
+voxsoul_tarnished.png
+  CC0 knight skin (Skin_27) by isaiah658
+  From: https://opengameart.org/content/minetest-skins-pack-1
+  Scaled 2x (128x64) for sharper in-game appearance.
+
+Code in player_model.lua is derived from player_api (LGPLv2.1+).

@@ -23,8 +23,8 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 **首次进入游戏：**
 
 1. 启动客户端 → **开始游戏** → 选择世界 **demo_interlude**（或新建，游戏选 **VoxSoul**）
-2. 控制台应出现全部 `[voxsoul_tests] ... passed` 与 `[voxsoul_world] Demo map build complete`（仅首次建图）
-3. 出生点：引导废墟 `(0, 11, 0)`
+3. 出生点：引导高台 `(0, 21, 0)`（绿色草地平台，地面 Y=20）
+4. 控制台应出现 `Demo map v2 build complete`（仅首次建图或 map_version 变更后）
 
 ## 操作
 
@@ -35,8 +35,11 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 | RMB | 格挡 |
 | Space + 方向 | 闪避 |
 | E (aux1) | 赐福交互 |
-| `/lockon` | 锁定目标 |
+| Z (zoom) | 锁定目标 |
+| `/lockon` | 锁定目标（聊天命令） |
 | `/voxsoul unstuck` | 传送到最近赐福 |
+
+**地图版本：** Demo 世界使用 `map_version=2`（地面 Y=20）。若地形异常，删除 `games/voxsoul/worlds/demo_interlude/mod_storage/voxsoul_core` 后重启以强制重建。
 
 ## Demo 地图路线
 
@@ -68,7 +71,8 @@ D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\games\voxsoul → 仓库 game
 ## 开发说明
 
 - 全局命名空间 `voxsoul = {}`；持久化使用 `minetest.get_mod_storage()`
-- 贴图为 16×16 占位 PNG，可替换为正式美术
+- 贴图使用 CC0 手绘 Minetest 包（drummyfish / OpenGameArt），可用 `python tools/install_textures.py` 重新安装
+- 玩家模型：`voxsoul_tarnished.b3d` + CC0 骑士皮肤（isaiah658 / OpenGameArt Skin_27），可用 `python tools/install_player_model.py` 重新安装
 - 详见 `docs/superpowers/specs/2026-07-01-voxsoul-elden-design.md`
 
 ## 同人项目声明

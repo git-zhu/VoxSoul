@@ -105,19 +105,23 @@ minetest.register_entity("voxsoul_boss:entity", {
         voxsoul.ui.show_boss_bar(self.boss_id, display_name, self.hp, self.max_hp)
 
         if self.brain.state == "attack" then
-            if self.brain.timer <= 0 then
+            self.brain.elapsed = (self.brain.elapsed or 0) + dtime
+            local atk = self.brain.current_atk
+            if not self.brain.hit_applied and atk and self.brain.elapsed >= atk.windup then
+                voxsoul.combat.hit_entity_with_attack(self.object, atk, target)
+                self.brain.hit_applied = true
+            end
+            if atk and self.brain.elapsed >= atk.windup + 0.5 then
                 self.brain.state = "recovery"
                 self.brain.timer = 0.5
-            end
-            if self.brain.hit_applied and self.brain.timer <= self.brain.windup_remaining then
-                voxsoul.combat.hit_entity_with_attack(self.object, self.brain.current_atk, target)
-                self.brain.hit_applied = false
             end
             return
         end
         if self.brain.state == "recovery" then
+            self.brain.timer = self.brain.timer - dtime
             if self.brain.timer <= 0 then
                 self.brain.state = "chase"
+                self.brain.timer = 0.8
             end
             return
         end
@@ -133,10 +137,9 @@ minetest.register_entity("voxsoul_boss:entity", {
             local atk = def.attacks[atk_name]
             if atk then
                 self.brain.state = "attack"
-                self.brain.timer = atk.windup + 0.3
-                self.brain.windup_remaining = 0.3
+                self.brain.elapsed = 0
+                self.brain.hit_applied = false
                 self.brain.current_atk = atk
-                self.brain.hit_applied = true
                 self.brain.last_attack = atk_name
                 self.object:set_velocity({ x = 0, y = 0, z = 0 })
             end

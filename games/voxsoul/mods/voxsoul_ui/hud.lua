@@ -16,7 +16,7 @@ function voxsoul.ui.update_player_hud(player)
     local text = string.format("HP %s\nST %s\nRunes: %d", bar(16, hp_pct), bar(16, st_pct), runes)
     if not ids.main then
         ids.main = player:hud_add({
-            hud_elem_type = "text",
+            type = "text",
             position = { x = 0.02, y = 0.85 },
             offset = { x = 0, y = 0 },
             scale = { x = 100, y = 100 },
@@ -39,7 +39,7 @@ function voxsoul.ui.show_boss_bar(boss_id, boss_name, hp, max_hp)
                 boss_name .. "\n" .. bar(24, hp / max_hp))
         else
             boss_huds[pname][boss_id] = player:hud_add({
-                hud_elem_type = "text",
+                type = "text",
                 name = "voxsoul_boss_" .. boss_id,
                 position = { x = 0.5, y = 0.05 },
                 offset = { x = -100, y = 0 },

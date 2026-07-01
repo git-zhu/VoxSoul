@@ -1,6 +1,7 @@
 voxsoul.player = {}
 voxsoul.player.data = {}
 voxsoul.player.stats = dofile(minetest.get_modpath("voxsoul_player") .. "/stats.lua")
+dofile(minetest.get_modpath("voxsoul_player") .. "/player_model.lua")
 
 local BASE_HP = 400
 local BASE_STAMINA = 100
@@ -106,6 +107,9 @@ function voxsoul.player.on_death(player)
         cd.hp = cd.max_hp
         cd.stamina = cd.max_stamina
         cd.state = "idle"
+        if voxsoul.combat.sync_engine_hp then
+            voxsoul.combat.sync_engine_hp(player)
+        end
     end)
 end
 

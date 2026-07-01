@@ -24,6 +24,17 @@ minetest.register_node("voxsoul_world:water", {
     groups = { water = 3, unbreakable = 1 },
 })
 
+minetest.register_node("voxsoul_world:spawn_light", {
+    description = "Spawn Light",
+    drawtype = "airlike",
+    walkable = false,
+    pointable = false,
+    sunlight_propagates = true,
+    paramtype = "light",
+    light_source = minetest.LIGHT_MAX,
+    groups = { not_in_creative_inventory = 1 },
+})
+
 minetest.register_alias("mapgen_stone", "voxsoul_world:stone")
 minetest.register_alias("mapgen_water_source", "voxsoul_world:water")
 minetest.register_alias("mapgen_river_water_source", "voxsoul_world:water")

@@ -1,9 +1,10 @@
-local FLOOR_Y = 10
+local FLOOR_Y = voxsoul.world.FLOOR_Y
 local STONE = "voxsoul_world:stone"
 local GRASS = "voxsoul_world:grass"
 local BRICK = "voxsoul_world:brick"
 local DARK = "voxsoul_world:dark_brick"
 local GOLD = "voxsoul_world:gold_trim"
+local LIGHT = "voxsoul_world:spawn_light"
 local TUTORIAL = "voxsoul_world:tutorial_sign"
 local GRACE = "voxsoul_grace:site"
 
@@ -30,18 +31,26 @@ local function set_floor(x1, z1, x2, z2, top_node)
     )
 end
 
-local function build_ruins()
-    set_floor(-15, -15, 15, 15, BRICK)
+local function build_tutorial_ruins()
+    set_floor(-15, -15, 15, 15, GRASS)
     set_box(vector.new(-3, FLOOR_Y + 1, -3), vector.new(3, FLOOR_Y + 4, 3), BRICK)
     set_box(vector.new(-2, FLOOR_Y + 1, -2), vector.new(2, FLOOR_Y + 3, 2), "air")
-    minetest.set_node(vector.new(0, FLOOR_Y + 1, 2), { name = TUTORIAL })
-    minetest.set_node(vector.new(0, FLOOR_Y, 12), { name = GRACE })
+    minetest.set_node(vector.new(0, FLOOR_Y + 1, 3), { name = TUTORIAL })
+    minetest.set_node(vector.new(0, FLOOR_Y, 8), { name = GRACE })
+    for _, p in ipairs({
+        vector.new(-10, FLOOR_Y + 1, -10),
+        vector.new(10, FLOOR_Y + 1, -10),
+        vector.new(-10, FLOOR_Y + 1, 10),
+        vector.new(10, FLOOR_Y + 1, 10),
+    }) do
+        minetest.set_node(p, { name = LIGHT })
+    end
 end
 
 local function build_road(x1, z1, x2, z2)
     set_floor(x1, z1, x2, z2, GRASS)
     local mid_z = math.floor((z1 + z2) / 2)
-    set_box(vector.new(x1, FLOOR_Y, mid_z - 2), vector.new(x2, FLOOR_Y, mid_z + 2), "voxsoul_world:gold_trim")
+    set_box(vector.new(x1, FLOOR_Y, mid_z - 2), vector.new(x2, FLOOR_Y, mid_z + 2), GOLD)
 end
 
 local function build_sentinel_arena()
@@ -66,12 +75,12 @@ local function build_catacombs()
 end
 
 function voxsoul.world.build_map()
-    minetest.log("action", "[voxsoul_world] Building demo map...")
+    minetest.log("action", "[voxsoul_world] Building demo map v" .. voxsoul.world.MAP_VERSION .. "...")
     local p1 = vector.new(-30, FLOOR_Y - 5, -30)
     local p2 = vector.new(260, FLOOR_Y + 20, 80)
     minetest.load_area(p1, p2)
 
-    build_ruins()
+    build_tutorial_ruins()
     build_road(16, -5, 59, 5)
     build_sentinel_arena()
     build_road(101, -5, 139, 5)
@@ -80,16 +89,13 @@ function voxsoul.world.build_map()
     build_catacombs()
 
     minetest.set_node(vector.new(170, FLOOR_Y, 5), { name = GRACE })
-    voxsoul.set_string("voxsoul:map_built", "1")
-    minetest.log("action", "[voxsoul_world] Demo map build complete")
+    voxsoul.set_string("voxsoul:map_version", voxsoul.world.MAP_VERSION)
+    minetest.log("action", "[voxsoul_world] Demo map v" .. voxsoul.world.MAP_VERSION .. " build complete")
 end
 
 function voxsoul.world.ensure_map()
-    local floor = minetest.get_node(vector.new(0, FLOOR_Y, 0))
-    if floor.name == "air" or floor.name == "ignore" then
-        voxsoul.set_string("voxsoul:map_built", "")
+    if voxsoul.get_string("voxsoul:map_version") == voxsoul.world.MAP_VERSION then
+        return
     end
-    if voxsoul.get_string("voxsoul:map_built") ~= "1" then
-        voxsoul.world.build_map()
-    end
+    voxsoul.world.build_map()
 end

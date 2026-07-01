@@ -23,6 +23,9 @@ function voxsoul.grace.rest(player)
     cd.hp = cd.max_hp
     cd.stamina = cd.max_stamina
     cd.state = "idle"
+    if voxsoul.combat.sync_engine_hp then
+        voxsoul.combat.sync_engine_hp(player)
+    end
     if voxsoul.world and voxsoul.world.respawn_enemies then
         voxsoul.world.respawn_enemies()
     end
@@ -62,10 +65,10 @@ function voxsoul.grace.try_interact(player)
     return false
 end
 
-voxsoul.grace.register("gatefront", { name = "Gatefront Grace", pos = vector.new(0, 10, 12), unlock = "default" })
-voxsoul.grace.register("stormhill", { name = "Stormhill Grace", pos = vector.new(80, 10, -12), unlock = "proximity" })
-voxsoul.grace.register("after_margit", { name = "After Margit Grace", pos = vector.new(170, 10, 5), unlock = "boss:margit" })
-voxsoul.grace.register("catacombs", { name = "Catacombs Grace", pos = vector.new(200, 10, 35), unlock = "proximity" })
+voxsoul.grace.register("gatefront", { name = "Gatefront Grace", pos = vector.new(0, 20, 8), unlock = "default" })
+voxsoul.grace.register("stormhill", { name = "Stormhill Grace", pos = vector.new(80, 20, -12), unlock = "proximity" })
+voxsoul.grace.register("after_margit", { name = "After Margit Grace", pos = vector.new(170, 20, 5), unlock = "boss:margit" })
+voxsoul.grace.register("catacombs", { name = "Catacombs Grace", pos = vector.new(200, 20, 35), unlock = "proximity" })
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
     if formname:find("^voxsoul:grace:") then
