@@ -3,7 +3,7 @@
 Branch: master
 Plan: docs/superpowers/specs/2026-07-01-voxsoul-elden-roadmap.md
 Overall: **~85%** — code-side release gate met
-Loop: **continuous** — 3s wake heartbeat (see `.superpowers/loop.md`)
+Loop: **stopped** — 85% code gate met; manual playtest remaining
 
 ## Phase C — complete
 

@@ -1,13 +1,14 @@
 # VoxSoul Agent Loop
 
-**Mode:** polish-only (85% code gate met)  
-**Wake delay:** 30s one-shot heartbeat after each turn  
-**Sentinel:** `AGENT_LOOP_WAKE_voxsoul`
+**Status:** **stopped** (2026-07-01)  
+**Reason:** 85% 代码放行门槛已达成；剩余 6 项 playtest 需实机验证，无自主代码任务。
 
-## Prompt (each tick)
+## Last session summary
 
-VoxSoul polish-only（85% 已达成）：更新 playtest-notes、README 操作表，修复小缺口，headless 验证，commit push。无高优先级任务时 arm 60s wake 或停止 loop。
+- 加权完成度 ~85%
+- Phase C/D/E 代码任务全部完成（E3 Mixamo deferred）
+- 详见 `docs/superpowers/plans/2026-07-01-voxsoul-playtest-notes.md`
 
-## Stop
+## Resume
 
-Kill the tracked sleeper PID or delete this file and ask agent to stop loop.
+Ask agent to restart loop or edit this file and arm a new wake.
