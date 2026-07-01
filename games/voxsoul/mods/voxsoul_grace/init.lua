@@ -65,10 +65,11 @@ function voxsoul.grace.try_interact(player)
     return false
 end
 
-voxsoul.grace.register("gatefront", { name = "Gatefront Grace", pos = vector.new(0, 20, 8), unlock = "default" })
-voxsoul.grace.register("stormhill", { name = "Stormhill Grace", pos = vector.new(80, 20, -12), unlock = "proximity" })
-voxsoul.grace.register("after_margit", { name = "After Margit Grace", pos = vector.new(170, 20, 5), unlock = "boss:margit" })
-voxsoul.grace.register("catacombs", { name = "Catacombs Grace", pos = vector.new(200, 20, 35), unlock = "proximity" })
+voxsoul.grace.register("gatefront", { name = "引导门前赐福", pos = vector.new(0, 20, 8), unlock = "default" })
+voxsoul.grace.register("stormhill", { name = "风暴山头赐福", pos = vector.new(80, 20, -12), unlock = "proximity" })
+voxsoul.grace.register("after_margit", { name = "雾墙门外赐福", pos = vector.new(170, 20, 5), unlock = "boss:margit" })
+voxsoul.grace.register("stormveil_side", { name = "史东薇尔侧室赐福", pos = vector.new(210, 20, -25), unlock = "proximity" })
+voxsoul.grace.register("stormveil_hall", { name = "接肢大厅赐福", pos = vector.new(235, 20, 8), unlock = "proximity" })
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
     if formname:find("^voxsoul:grace:") then

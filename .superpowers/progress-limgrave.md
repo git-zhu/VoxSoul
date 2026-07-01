@@ -1,28 +1,28 @@
 # VoxSoul Limgrave → Godrick Progress
 
 **Spec:** docs/superpowers/specs/2026-07-01-voxsoul-limgrave-godrick-loop-design.md  
-**Current milestone:** M0 (pending spec Approved)  
-**Loop:** not started
+**Current milestone:** M2  
+**Loop:** active (3s wake)
 
 ## M0 — Spec 落地
 
-- [ ] Spec user Approved
-- [ ] loop-limgrave.md armed
-- [ ] deviation-log initialized
+- [x] Spec user Approved
+- [x] loop-limgrave.md active (3s)
+- [x] deviation-log initialized
 
 ## M1 — 史东薇尔外廓
 
-- [ ] M1-T1 MAP_VERSION=3
-- [ ] M1-T2 build_stormveil gate/courtyard
-- [ ] M1-T3 Grace 中文名 + new IDs
-- [ ] M1-T4 Road reroute post-Margit
+- [x] M1-T1 MAP_VERSION=3
+- [x] M1-T2 build_stormveil gate/courtyard/hall + side path voxels
+- [x] M1-T3 Grace 中文名 + stormveil_side/hall
+- [x] M1-T4 Road reroute post-Margit
 
 ## M2 — 城内探索
 
-- [ ] M2-T1 Side path voxels
-- [ ] M2-T2 Grace placement
-- [ ] M2-T3 Enemy spawns
-- [ ] M2-T4 Lore signs
+- [x] M2-T1 Side path voxels (included in M1 build)
+- [x] M2-T2 Grace placement
+- [x] M2-T3 Enemy spawns
+- [ ] M2-T4 Lore signs (Chinese)
 
 ## M3 — 葛瑞克 Boss
 

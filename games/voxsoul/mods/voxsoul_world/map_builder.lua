@@ -66,18 +66,47 @@ local function build_margit_arena()
     minetest.set_node(vector.new(160, FLOOR_Y, -25), { name = GRACE })
 end
 
-local function build_catacombs()
-    set_floor(190, 30, 240, 70, DARK)
-    set_box(vector.new(195, FLOOR_Y - 3, 35), vector.new(235, FLOOR_Y + 4, 65), DARK)
-    set_box(vector.new(200, FLOOR_Y - 2, 40), vector.new(230, FLOOR_Y + 3, 60), "air")
-    set_box(vector.new(225, FLOOR_Y - 2, 45), vector.new(230, FLOOR_Y + 1, 55), DARK)
-    minetest.set_node(vector.new(200, FLOOR_Y, 35), { name = GRACE })
+local function build_stormveil_gate()
+    set_floor(180, -15, 200, 15, BRICK)
+    set_box(vector.new(183, FLOOR_Y + 1, -6), vector.new(197, FLOOR_Y + 8, 6), BRICK)
+    set_box(vector.new(186, FLOOR_Y + 1, -3), vector.new(194, FLOOR_Y + 6, 3), "air")
+    minetest.set_node(vector.new(185, FLOOR_Y, 0), { name = GOLD })
+    minetest.set_node(vector.new(190, FLOOR_Y + 1, 0), { name = TUTORIAL })
+end
+
+local function build_stormveil_courtyard()
+    set_floor(200, -20, 225, 20, BRICK)
+    set_box(vector.new(202, FLOOR_Y + 1, -18), vector.new(222, FLOOR_Y + 5, 18), BRICK)
+    set_box(vector.new(205, FLOOR_Y + 1, -15), vector.new(220, FLOOR_Y + 4, 15), "air")
+    minetest.set_node(vector.new(205, FLOOR_Y, 0), { name = GOLD })
+end
+
+local function build_stormveil_side_path()
+    set_floor(200, -38, 228, -12, DARK)
+    set_box(vector.new(203, FLOOR_Y + 1, -36), vector.new(225, FLOOR_Y + 4, -14), DARK)
+    set_box(vector.new(206, FLOOR_Y + 1, -33), vector.new(222, FLOOR_Y + 3, -17), "air")
+    minetest.set_node(vector.new(210, FLOOR_Y, -25), { name = GRACE })
+end
+
+local function build_stormveil_hall()
+    set_floor(226, -5, 265, 35, DARK)
+    set_box(vector.new(228, FLOOR_Y + 1, 0), vector.new(262, FLOOR_Y + 6, 30), DARK)
+    set_box(vector.new(232, FLOOR_Y + 1, 4), vector.new(258, FLOOR_Y + 5, 26), "air")
+    set_box(vector.new(250, FLOOR_Y + 1, 10), vector.new(255, FLOOR_Y + 4, 20), GOLD)
+    minetest.set_node(vector.new(235, FLOOR_Y, 8), { name = GRACE })
+    minetest.set_node(vector.new(255, FLOOR_Y + 1, 15), { name = TUTORIAL })
+end
+
+local function build_road_to_stormveil()
+    build_road(181, -5, 199, 5)
+    build_road(201, -5, 225, 5)
+    build_road(226, 5, 254, 15)
 end
 
 function voxsoul.world.build_map()
     minetest.log("action", "[voxsoul_world] Building demo map v" .. voxsoul.world.MAP_VERSION .. "...")
-    local p1 = vector.new(-30, FLOOR_Y - 5, -30)
-    local p2 = vector.new(260, FLOOR_Y + 20, 80)
+    local p1 = vector.new(-30, FLOOR_Y - 5, -45)
+    local p2 = vector.new(270, FLOOR_Y + 25, 85)
     minetest.load_area(p1, p2)
 
     build_tutorial_ruins()
@@ -85,8 +114,11 @@ function voxsoul.world.build_map()
     build_sentinel_arena()
     build_road(101, -5, 139, 5)
     build_margit_arena()
-    build_road(181, -5, 189, 45)
-    build_catacombs()
+    build_road_to_stormveil()
+    build_stormveil_gate()
+    build_stormveil_courtyard()
+    build_stormveil_side_path()
+    build_stormveil_hall()
 
     minetest.set_node(vector.new(170, FLOOR_Y, 5), { name = GRACE })
     voxsoul.set_string("voxsoul:map_version", voxsoul.world.MAP_VERSION)

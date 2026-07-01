@@ -1,8 +1,8 @@
 # VoxSoul Limgrave → Godrick Loop
 
-**Status:** armed (awaiting spec Approved)  
+**Status:** **active**  
 **Mode:** milestone-gated M0–M5  
-**Wake delay:** 5s one-shot after each turn  
+**Wake delay:** 3s one-shot after each turn  
 **Sentinel:** `AGENT_LOOP_WAKE_limgrave`
 
 ## Spec

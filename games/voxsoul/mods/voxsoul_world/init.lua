@@ -150,9 +150,11 @@ minetest.register_on_mods_loaded(function()
     local sy = voxsoul.world.spawn_y()
     register_spawn(vector.new(50, sy, 5), "voxsoul_world:knight")
     register_spawn(vector.new(55, sy, -5), "voxsoul_world:knight")
-    register_spawn(vector.new(210, sy, 45), "voxsoul_world:omen_freak")
-    register_spawn(vector.new(215, sy, 50), "voxsoul_world:omen_freak")
-    register_spawn(vector.new(220, sy, 55), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(205, sy, 3), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(208, sy, -3), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(215, sy, -22), "voxsoul_world:knight")
+    register_spawn(vector.new(245, sy, 12), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(248, sy, 18), "voxsoul_world:omen_freak")
 end)
 
 minetest.register_on_mods_loaded(function()
@@ -177,7 +179,7 @@ minetest.register_on_joinplayer(function(player)
             voxsoul.boss.spawn("margit", vector.new(160, sy, 0))
         end
         if not voxsoul.boss.is_defeated("grafted_hag") then
-            voxsoul.boss.spawn("grafted_hag", vector.new(230, sy, 50))
+            voxsoul.boss.spawn("grafted_hag", vector.new(255, sy, 15))
         end
     end)
 end)

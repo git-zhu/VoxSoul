@@ -149,7 +149,7 @@ Boss 生成：`godrick` @ (255, sy, 15)。
 ## 5. Loop 专用任务书（里程碑门禁）
 
 **编排方案**：里程碑门禁 Loop（§1 推荐方案 1）。  
-**唤醒**：每轮结束后 **5s** one-shot（`.superpowers/loop-limgrave.md`）。  
+**唤醒**：每轮结束后 **3s** one-shot（`.superpowers/loop-limgrave.md`）。  
 **哨兵**：`AGENT_LOOP_WAKE_limgrave`
 
 ### 5.1 里程碑
@@ -208,7 +208,7 @@ Boss 生成：`godrick` @ (255, sy, 15)。
 3. 取 **当前里程碑** 首个「待做」任务  
 4. 实现 → headless 验证 → 更新 progress → commit → push  
 5. 里程碑 checklist 全绿 → 进入下一里程碑；**M5 完成 → 停止 loop**  
-6. Arm 5s wake（除非已停止）
+6. Arm 3s wake（除非已停止）
 
 ### 5.4 Loop Prompt（写入 `loop-limgrave.md`）
 
@@ -269,4 +269,4 @@ Boss 生成：`godrick` @ (255, sy, 15)。
 | 地图范围 | 史东薇尔可探索片段（C） |
 | Loop 编排 | 里程碑门禁 M0–M5 |
 | 终局 | 替换 grafted_hag |
-| 状态 | **Draft → 待用户 Approved** |
+| 状态 | **Approved**（2026-07-01） |

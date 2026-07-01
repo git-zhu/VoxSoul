@@ -6,8 +6,8 @@ Loop 每轮对照；关闭项标记 `[x]`。
 |----|------|------|------|
 | D1 | grafted_hag 终局 | godrick 葛瑞克 | [ ] |
 | D2 | build_catacombs | build_stormveil_slice | [ ] |
-| D3 | 英文 Grace 名 | 法环风中文 | [ ] |
+| D3 | 英文 Grace 名 | 法环风中文 | [x] |
 | D4 | 鬼婆通关 UI | 葛瑞克/大卢恩 | [ ] |
-| D5 | MAP_VERSION=2 | MAP_VERSION=3 | [ ] |
-| D6 | 无侧路探索 | 侧廊+2赐福 | [ ] |
-| D7 | 玛尔基特后接墓 | 史东薇尔城门 | [ ] |
+| D5 | MAP_VERSION=2 | MAP_VERSION=3 | [x] |
+| D6 | 无侧路探索 | 侧廊+2赐福 | [x] |
+| D7 | 玛尔基特后接墓 | 史东薇尔城门 | [x] |
