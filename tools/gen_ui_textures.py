@@ -7,36 +7,37 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1] / "games" / "voxsoul" / "mods" / "voxsoul_ui" / "textures"
 ROOT.mkdir(parents=True, exist_ok=True)
 
-# Palette — dark stone + gold trim + crimson / stamina green
-STONE = (28, 24, 22)
-STONE_EDGE = (18, 15, 14)
-GOLD = (200, 170, 90)
-GOLD_DIM = (120, 100, 55)
-HP_FILL = (170, 35, 35)
-HP_HIGH = (220, 70, 60)
-HP_BG = (50, 18, 18)
-ST_FILL = (120, 150, 55)
-ST_HIGH = (170, 200, 80)
-ST_BG = (30, 40, 18)
-BOSS_FILL = (190, 45, 45)
-BOSS_BG = (40, 15, 15)
+# Palette — weathered stone frame + gold filigree + crimson / stamina green
+STONE = (22, 18, 16)
+STONE_EDGE = (12, 10, 9)
+STONE_HI = (38, 32, 28)
+GOLD = (212, 178, 88)
+GOLD_DIM = (108, 88, 48)
+GOLD_BRIGHT = (255, 228, 140)
+HP_FILL = (158, 28, 28)
+HP_HIGH = (210, 58, 48)
+HP_BG = (42, 14, 14)
+ST_FILL = (108, 138, 48)
+ST_HIGH = (158, 188, 72)
+ST_BG = (24, 34, 14)
+BOSS_FILL = (178, 38, 38)
+BOSS_BG = (34, 12, 12)
 
 
 def elden_half_icon(path: Path, fill: tuple, fill_hi: tuple, bg: tuple) -> None:
-    """Statbar cell: dark frame, gold corners, gradient fill."""
+    """Statbar cell: stone frame, gold trim, left-half fill for Luanti statbar."""
     img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, 15, 15), fill=STONE_EDGE + (255,))
     draw.rectangle((1, 1, 14, 14), fill=STONE + (255,))
-    draw.rectangle((2, 2, 13, 13), fill=bg + (255,))
-    # left half filled
+    draw.rectangle((2, 2, 13, 13), fill=STONE_HI + (255,))
+    draw.rectangle((3, 3, 13, 13), fill=bg + (255,))
     draw.rectangle((3, 4, 7, 11), fill=fill + (255,))
-    draw.rectangle((3, 4, 6, 7), fill=fill_hi + (255,))
-    # right half bg (empty segment look)
+    draw.rectangle((3, 4, 6, 8), fill=fill_hi + (255,))
     draw.rectangle((8, 4, 12, 11), fill=bg + (255,))
-    draw.point((2, 2), fill=GOLD + (255,))
-    draw.point((13, 2), fill=GOLD_DIM + (255,))
-    draw.point((2, 13), fill=GOLD_DIM + (255,))
+    draw.line((2, 2, 13, 2), fill=GOLD_DIM + (220,))
+    draw.line((2, 13, 13, 13), fill=GOLD + (200,))
+    draw.point((2, 2), fill=GOLD_BRIGHT + (255,))
     draw.point((13, 13), fill=GOLD + (255,))
     img.save(path)
 
@@ -46,22 +47,24 @@ def elden_half_bg(path: Path, bg: tuple) -> None:
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, 15, 15), fill=STONE_EDGE + (255,))
     draw.rectangle((1, 1, 14, 14), fill=STONE + (255,))
-    draw.rectangle((2, 2, 13, 13), fill=bg + (255,))
+    draw.rectangle((2, 2, 13, 13), fill=STONE_HI + (255,))
     draw.rectangle((3, 4, 12, 11), fill=bg + (255,))
-    for x, y in ((2, 2), (13, 2), (2, 13), (13, 13)):
-        draw.point((x, y), fill=GOLD_DIM + (200,))
+    draw.line((2, 2, 13, 2), fill=GOLD_DIM + (180,))
+    draw.line((2, 13, 13, 13), fill=GOLD_DIM + (140,))
     img.save(path)
 
 
 def boss_half_icon(path: Path, fill: tuple, bg: tuple) -> None:
     img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
-    draw.rectangle((0, 0, 15, 15), fill=(10, 8, 8, 255))
-    draw.rectangle((1, 3, 14, 12), fill=bg + (255,))
+    draw.rectangle((0, 0, 15, 15), fill=(8, 6, 6, 255))
+    draw.rectangle((1, 2, 14, 13), fill=bg + (255,))
     draw.rectangle((2, 4, 7, 11), fill=fill + (255,))
     draw.rectangle((8, 4, 13, 11), fill=bg + (255,))
-    draw.line((1, 2, 14, 2), fill=GOLD + (255,))
-    draw.line((1, 13, 14, 13), fill=GOLD_DIM + (255,))
+    draw.line((1, 1, 14, 1), fill=GOLD_BRIGHT + (255,))
+    draw.line((1, 14, 14, 14), fill=GOLD_DIM + (255,))
+    draw.point((1, 1), fill=GOLD + (255,))
+    draw.point((14, 1), fill=GOLD + (255,))
     img.save(path)
 
 

@@ -22,4 +22,7 @@ assert(strafe and strafe.z > 0.9, "lock strafe forward should face target")
 strafe = voxsoul.combat.compute_strafe_move({ x = 10, y = 0, z = 0 }, { left = true })
 assert(strafe and strafe.z > 0.5, "lock strafe left should be tangent")
 
+assert(voxsoul.combat.is_environmental_damage({ type = "fall" }) == true)
+assert(voxsoul.combat.is_environmental_damage({ type = "punch" }) == false)
+
 minetest.log("action", "[voxsoul_combat] stamina/state tests passed")

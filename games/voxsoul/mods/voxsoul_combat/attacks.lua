@@ -44,6 +44,48 @@ function voxsoul.combat.apply_damage_to_entity(obj, damage, poise_damage, attack
     end
 end
 
+local ENV_DAMAGE_TYPES = {
+    fall = true,
+    drown = true,
+    node_damage = true,
+}
+
+function voxsoul.combat.engine_hp_to_combat(player, engine_hp_change)
+    local data = voxsoul.combat.ensure_data(player)
+    local engine_max = player:get_properties().hp_max or 20
+    if engine_max <= 0 then
+        return 0
+    end
+    return math.abs(engine_hp_change) * (data.max_hp / engine_max)
+end
+
+function voxsoul.combat.apply_environmental_damage(player, damage, damage_type)
+    local data = voxsoul.combat.ensure_data(player)
+    if voxsoul.combat.is_invincible(player) or data.state == "dead" then
+        return
+    end
+    damage = math.max(0, damage)
+    if damage <= 0 then
+        return
+    end
+    data.hp = math.max(0, data.hp - damage)
+    if damage_type == "fall" and damage >= data.max_hp * 0.05 then
+        voxsoul.combat.state.force_state(data, "hitstun")
+        data.hitstun_timer = 0.35
+    end
+    if data.hp <= 0 then
+        data.state = "dead"
+    end
+    if voxsoul.ui and damage > 0 then
+        voxsoul.ui.combat_flash(player, "hit", 0.15)
+    end
+    voxsoul.combat.sync_engine_hp(player)
+end
+
+function voxsoul.combat.is_environmental_damage(reason)
+    return reason and ENV_DAMAGE_TYPES[reason.type] == true
+end
+
 function voxsoul.combat.apply_damage_to_player(player, damage, poise_damage, attacker)
     local data = voxsoul.combat.ensure_data(player)
     if voxsoul.combat.is_invincible(player) then

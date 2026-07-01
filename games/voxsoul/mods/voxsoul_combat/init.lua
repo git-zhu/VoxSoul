@@ -55,7 +55,11 @@ function voxsoul.combat.refresh_stats(player)
     data.stamina = math.min(data.stamina, data.max_stamina)
 end
 
-minetest.register_on_player_hpchange(function(player, hp_change)
+minetest.register_on_player_hpchange(function(player, hp_change, reason)
+    if hp_change < 0 and voxsoul.combat.is_environmental_damage(reason) then
+        local combat_damage = voxsoul.combat.engine_hp_to_combat(player, hp_change)
+        voxsoul.combat.apply_environmental_damage(player, combat_damage, reason.type)
+    end
     return true
 end)
 

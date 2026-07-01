@@ -27,7 +27,7 @@ function voxsoul.ui.show_boss_bar(boss_id, boss_name, hp, max_hp)
                     alignment = { x = 0, y = 0 },
                     scale = { x = 150, y = 150 },
                     text = boss_name,
-                    number = 0xE8C878,
+                    number = 0xD4B050,
                     z_index = 200,
                 }),
                 bar = player:hud_add({
