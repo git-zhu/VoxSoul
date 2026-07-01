@@ -91,13 +91,28 @@ minetest.register_entity("voxsoul_boss:entity", {
             self.stagger_timer = self.stagger_timer - dtime
             return
         end
+local DEAGGRO_RANGE = 28
+local DEAGGRO_TIME = 5
+
         local pos = self.object:get_pos()
         local target = find_nearest_player(pos, 20)
-        if not target then
-            self.brain.state = "idle"
+        local dist = target and vector.distance(pos, target:get_pos()) or DEAGGRO_RANGE + 1
+
+        if not target or dist > DEAGGRO_RANGE then
+            self.deaggro_timer = (self.deaggro_timer or 0) + dtime
+            self.object:set_velocity({ x = 0, y = 0, z = 0 })
+            if self.deaggro_timer >= DEAGGRO_TIME then
+                self.hp = self.max_hp
+                self.poise = self.max_poise
+                self.brain.state = "idle"
+                self.brain.timer = 0
+                self.deaggro_timer = 0
+                voxsoul.ui.hide_boss_bar(self.boss_id)
+            end
             return
         end
-        local dist = vector.distance(pos, target:get_pos())
+        self.deaggro_timer = 0
+
         self.brain.timer = self.brain.timer - dtime
         local hp_ratio = self.hp / self.max_hp
         local phase = voxsoul.boss.ai.get_phase(def, hp_ratio)
@@ -153,6 +168,15 @@ minetest.register_entity("voxsoul_boss:entity", {
                 self.brain.current_atk = atk
                 self.brain.last_attack = atk_name
                 self.object:set_velocity({ x = 0, y = 0, z = 0 })
+                local p = self.object:get_pos()
+                minetest.add_particle({
+                    pos = { x = p.x, y = p.y + 1, z = p.z },
+                    velocity = { x = 0, y = 0.5, z = 0 },
+                    expirationtime = atk.windup or 1,
+                    size = 3,
+                    texture = "voxsoul_boss.png",
+                    glow = 4,
+                })
             end
         end
     end,

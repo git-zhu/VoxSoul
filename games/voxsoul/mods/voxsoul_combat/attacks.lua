@@ -49,18 +49,29 @@ function voxsoul.combat.apply_damage_to_player(player, damage, poise_damage, att
     if voxsoul.combat.is_invincible(player) then
         return
     end
-    if data.blocking then
-        local hit_time = minetest.get_gametime()
-        if voxsoul.combat.try_parry(player, hit_time) then
-            if attacker and attacker:get_luaentity() then
-                attacker:get_luaentity().stagger_timer = C.PARRY.stagger
-            end
-            return
+    local hit_time = minetest.get_gametime()
+    if not data.blocking and voxsoul.combat.try_parry(player, hit_time) then
+        if attacker and attacker:get_luaentity() then
+            attacker:get_luaentity().stagger_timer = C.PARRY.stagger
         end
+        if voxsoul.ui then
+            voxsoul.ui.combat_flash(player, "parry", 0.45)
+        end
+        return
+    end
+    if data.blocking then
         damage = voxsoul.combat.apply_block_damage(player, damage)
+        if data.state == "guardbreak" then
+            if voxsoul.ui then
+                voxsoul.ui.combat_flash(player, "guardbreak", 0.6)
+            end
+        elseif voxsoul.ui then
+            voxsoul.ui.combat_flash(player, "block", 0.25)
+        end
     end
     data.hp = data.hp - damage
     data.poise = data.poise - poise_damage
+    data.hitstop_timer = 0.05
     if data.poise <= 0 then
         voxsoul.combat.state.force_state(data, "hitstun")
         data.hitstun_timer = 1.2
@@ -71,6 +82,9 @@ function voxsoul.combat.apply_damage_to_player(player, damage, poise_damage, att
     end
     if data.hp <= 0 then
         data.state = "dead"
+    end
+    if voxsoul.ui and damage > 0 then
+        voxsoul.ui.combat_flash(player, "hit", 0.2)
     end
     voxsoul.combat.sync_engine_hp(player)
 end

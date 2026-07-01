@@ -90,6 +90,8 @@ minetest.register_globalstep(function(dt)
                 data.state = "idle"
                 data.dodge_elapsed = 0
             end
+        elseif (data.hitstop_timer or 0) > 0 then
+            data.hitstop_timer = data.hitstop_timer - dt
         elseif data.state == "attacking" then
             data.attack_timer = (data.attack_timer or 0) + dt
             if data.pending_attack and data.attack_timer >= data.pending_attack.windup then
@@ -136,7 +138,10 @@ minetest.register_globalstep(function(dt)
 
         local speed = 1.0
         local jump = 1.0
-        if voxsoul.combat.stamina.is_exhausted(data.stamina, data.max_stamina) then
+        if (data.hitstop_timer or 0) > 0 then
+            speed = 0
+            jump = 0
+        elseif voxsoul.combat.stamina.is_exhausted(data.stamina, data.max_stamina) then
             speed = 0.7
         elseif data.blocking or data.state == "blocking" then
             speed = 0.5
