@@ -2,10 +2,10 @@ local flash_state = {}
 local overlay_ids = {}
 
 local MESSAGES = {
-    hit = { text = "", color = 0xFF2222, overlay = 0x44FF0000 },
-    block = { text = "BLOCK", color = 0xAABBCC, overlay = 0x22003366 },
-    parry = { text = "PARRY!", color = 0xFFD700, overlay = 0x44FFCC00 },
-    guardbreak = { text = "GUARD BROKEN", color = 0xFF8800, overlay = 0x55FF4400 },
+    hit = { text = "", color = 0xFF2222, overlay_tex = "voxsoul_flash_red.png", overlay = 0xFFFFFFFF },
+    block = { text = "BLOCK", color = 0xC8D0E0, overlay_tex = "voxsoul_flash_gold.png", overlay = 0x88FFFFFF },
+    parry = { text = "PARRY!", color = 0xFFD700, overlay_tex = "voxsoul_flash_gold.png", overlay = 0xCCFFFFFF },
+    guardbreak = { text = "GUARD BROKEN", color = 0xFF8800, overlay_tex = "voxsoul_flash_red.png", overlay = 0xBBFFFFFF },
 }
 
 function voxsoul.ui.combat_flash(player, kind, duration)
@@ -59,7 +59,7 @@ function voxsoul.ui.update_combat_feedback(player)
             offset = { x = 0, y = 0 },
             alignment = { x = 0, y = 0 },
             scale = { x = -200, y = -200 },
-            text = "voxsoul_hp_bg.png",
+            text = cfg.overlay_tex or "voxsoul_flash_red.png",
             number = cfg.overlay,
             z_index = 500,
         })

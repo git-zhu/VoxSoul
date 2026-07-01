@@ -2,7 +2,7 @@
 
 Branch: master
 Plan: docs/superpowers/specs/2026-07-01-voxsoul-elden-roadmap.md
-Overall: ~76% toward Elden Ring parity (target 85%)
+Overall: ~79% toward Elden Ring parity (target 85%)
 Loop: **continuous** — 3s wake heartbeat (see `.superpowers/loop.md`)
 
 ## Phase C — complete
@@ -18,4 +18,4 @@ Loop: **continuous** — 3s wake heartbeat (see `.superpowers/loop.md`)
 - [x] E1: Improved enemy/boss sprites — complete
 - [x] E2: Lock-on strafe orbit — complete
 - [ ] E3: Mixamo b3d — pending
-- [ ] E4: Elden UI textures — pending
+- [x] E4: Elden UI textures — complete

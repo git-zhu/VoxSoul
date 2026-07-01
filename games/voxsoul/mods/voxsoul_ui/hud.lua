@@ -83,7 +83,7 @@ function voxsoul.ui.update_player_hud(player)
             offset = { x = 4, y = 0 },
             scale = { x = 110, y = 110 },
             text = hp_text,
-            number = 0xFF6666,
+            number = 0xE8DCC8,
             z_index = 100,
         })
         ids.st_text = player:hud_add({
@@ -92,7 +92,7 @@ function voxsoul.ui.update_player_hud(player)
             offset = { x = 4, y = 0 },
             scale = { x = 110, y = 110 },
             text = st_text,
-            number = 0x66FF66,
+            number = 0xC8D878,
             z_index = 100,
         })
     else

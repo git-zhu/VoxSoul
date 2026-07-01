@@ -58,7 +58,7 @@ function voxsoul.ui.update_lock_target_hud(player)
                 alignment = { x = 0, y = 0 },
                 scale = { x = 130, y = 130 },
                 text = text,
-                number = 0xFFAA44,
+                number = 0xE8C878,
                 z_index = 150,
             }),
             bar = player:hud_add({
