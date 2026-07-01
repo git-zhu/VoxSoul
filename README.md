@@ -35,7 +35,7 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 | RMB | 格挡 |
 | Space | 跳跃 |
 | Space + 方向 | 闪避（消耗耐力，带位移） |
-| E (aux1) | 赐福交互 |
+| E (aux1) | 赐福交互 / 拾取卢恩堆 |
 | Z (zoom) | 锁定目标 |
 | `/lockon` | 锁定目标（聊天命令） |
 | `/voxsoul unstuck` | 传送到最近赐福 |
@@ -44,10 +44,10 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 
 ## HUD
 
-- 左下：红色 HP 条、绿色耐力条（耗尽时闪烁）
-- 右下：卢恩数
-- Boss 战：顶部 Boss 名 + 血条
-- Z 锁定：目标脚下红色标记
+- 左下：法环风 HP / 耐力 statbar + 数值
+- 右下：卢恩数、当前武器与护符
+- Boss 战：顶部 Boss 名 + 血条（阶段切换金色闪屏）
+- Z 锁定：目标脚下红圈；WASD 相对目标 strafe 环绕
 
 ## Demo 地图路线
 
@@ -81,7 +81,8 @@ D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\games\voxsoul → 仓库 game
 - 全局命名空间 `voxsoul = {}`；持久化使用 `minetest.get_mod_storage()`
 - 贴图使用 CC0 手绘 Minetest 包（drummyfish / OpenGameArt），可用 `python tools/install_textures.py` 重新安装
 - 玩家模型：`voxsoul_tarnished.b3d` + CC0 骑士皮肤（isaiah658 / OpenGameArt Skin_27），可用 `python tools/install_player_model.py` 重新安装
-- UI 纹理：`python tools/gen_ui_textures.py` 重新生成 statbar / lockon 贴图
+- UI 纹理：`python tools/gen_ui_textures.py`；敌人/Boss 精灵：`python tools/gen_entity_sprites.py`
+- 自主迭代 loop 配置：`.superpowers/loop.md`（当前 polish-only，~85% 代码完成度）
 - 详见 `docs/superpowers/specs/2026-07-01-voxsoul-elden-design.md`
 
 ## 同人项目声明
