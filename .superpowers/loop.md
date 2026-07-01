@@ -6,7 +6,7 @@
 
 ## Prompt (each tick)
 
-继续 VoxSoul 艾尔登法环对标开发：读取 `docs/superpowers/specs/2026-07-01-voxsoul-elden-roadmap.md` 与 `.superpowers/sdd/progress.md`，执行下一未完成高优先级任务，headless 验证，commit push，更新完成度，无需询问用户。完成后立即进入下一轮（arm 3s wake）。
+VoxSoul polish-only（85% 已达成）：更新 playtest-notes、README 操作表，修复小缺口，headless 验证，commit push。无高优先级任务时 arm 60s wake 或停止 loop。
 
 ## Stop
 

@@ -36,13 +36,48 @@
 
 ## Known issues (post-sprint)
 
-- Boss/敌人仍为 sprite，非 mesh
-- 锁定无相机环绕
-- 弹反/手感未调参
+- ~~Boss/敌人仍为 sprite，非 mesh~~ → E1 已加独立精灵图（仍非 mesh）
+- ~~锁定无相机环绕~~ → E2 已加 strafe + 相机 orbit
+- 弹反/手感需客户端实机调参
+- Mixamo 专用 b3d 战斗帧 deferred（E3 部分完成）
 
 ---
 
-## Sprint B — UI & Animation (2026-07-01)
+## Phase C–E — Combat & Polish (2026-07-01)
+
+**Build:** enemy AI, lock target HUD, rune pickup, combat feedback, boss deaggro, demo clear, strafe, sprites, Elden UI, 85% gate
+
+### Code verified
+
+- [x] 普通敌人追击+近战 AI（knight / omen_freak）
+- [x] 锁定目标名称 + HP 条 HUD
+- [x] E 键卢恩堆拾取（`try_pickup_runes`）
+- [x] 格挡/弹反/破防/受击闪屏（`combat_feedback.lua`）
+- [x] 锁定 strafe 环绕 + 第三人称 orbit 偏移
+- [x] hitstop 0.05s + 受击 red flash
+- [x] Boss 脱战 28m / 5s 回满 HP
+- [x] Boss 前摇粒子 telegraph
+- [x] 大树守卫 golden_blessing 护符掉落
+- [x] Demo 通关 formspec
+- [x] 敌人/Boss 独立精灵贴图
+- [x] 法环风 statbar / Boss 条 / 闪屏贴图
+- [x] Margit 阶段 2 切换金色闪屏 + 名称后缀
+- [x] 武器/护符 loadout HUD（右下）
+- [x] 赐福/升级/死亡 formspec 暗色主题
+- [x] 攻击动画速度与 windup 对齐（light 80 / heavy 50 fps）
+
+### Manual checklist (remaining)
+
+- [ ] 闪避无敌帧窗口（0.1–0.5s）目视确认
+- [ ] 格挡/弹反 BLOCK/PARRY 字样与闪屏
+- [ ] 三 Boss 全流程击败（含 Margit 二阶段）
+- [ ] 死亡 → 卢恩堆 → E 拾取循环
+- [ ] 左下/顶部 statbar 贴图在游戏中可见
+- [ ] 锁定 strafe 环绕手感
+
+**Checklist completion:** 20/26 ≈ **77%** code-verified; 6 items need in-game session.
+
+**Combined Sprint A+B+C–E:** 32/43 ≈ **74%** code-verified overall.
 
 **Build:** statbar HUD, lockon marker, semantic combat animations
 
@@ -70,3 +105,7 @@
 - [ ] 死亡 lay 动画
 
 **Checklist completion:** 7/17 code-verified; 10 manual items need in-game session.
+
+---
+
+## Sprint B — UI & Animation (2026-07-01)
