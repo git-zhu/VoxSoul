@@ -5,13 +5,19 @@ Environment: Luanti not installed on dev machine — static implementation only
 
 ## Automated assertions (on mod load)
 
-- [x] voxsoul_tests core + camera
+- [x] voxsoul_tests core + camera + integration smoke
 - [x] voxsoul_entity hitbox
 - [x] voxsoul_combat stamina/state/dodge
 - [x] voxsoul_player stats
 - [x] voxsoul_boss ai pick_attack
 
-## Manual checklist (requires Luanti 5.13+)
+## Server integration (Luanti 5.16.1 portable)
+
+- [x] All mods load without ModError
+- [x] Demo map auto-build on first run
+- [x] Mapgen aliases registered (flat)
+
+## Manual checklist (requires in-game client)
 
 - [ ] Tutorial sign readable
 - [ ] Third-person over-shoulder locked
@@ -25,7 +31,6 @@ Environment: Luanti not installed on dev machine — static implementation only
 
 ## Known gaps
 
-- Placeholder sprite textures (need PNG assets in mod textures/)
-- Map is coordinate-based spawns; full voxel map not hand-built yet
-- Q lock-on uses `/lockon` chatcommand alias until key binding added
-- Dig/place blocked via punchnode + item override
+- Placeholder sprite textures (replace PNGs in mod `textures/` folders)
+- Q lock-on uses `/lockon` chatcommand
+- Client-side combat feel not yet manually verified in GUI session

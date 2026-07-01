@@ -62,10 +62,10 @@ function voxsoul.grace.try_interact(player)
     return false
 end
 
-voxsoul.grace.register("gatefront", { name = "Gatefront Grace", pos = vector.new(0, 10, 0), unlock = "default" })
-voxsoul.grace.register("stormhill", { name = "Stormhill Grace", pos = vector.new(80, 10, 0), unlock = "proximity" })
-voxsoul.grace.register("after_margit", { name = "After Margit Grace", pos = vector.new(160, 10, 0), unlock = "boss:margit" })
-voxsoul.grace.register("catacombs", { name = "Catacombs Grace", pos = vector.new(200, 5, 40), unlock = "proximity" })
+voxsoul.grace.register("gatefront", { name = "Gatefront Grace", pos = vector.new(0, 10, 12), unlock = "default" })
+voxsoul.grace.register("stormhill", { name = "Stormhill Grace", pos = vector.new(80, 10, -12), unlock = "proximity" })
+voxsoul.grace.register("after_margit", { name = "After Margit Grace", pos = vector.new(170, 10, 5), unlock = "boss:margit" })
+voxsoul.grace.register("catacombs", { name = "Catacombs Grace", pos = vector.new(200, 10, 35), unlock = "proximity" })
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
     if formname:find("^voxsoul:grace:") then

@@ -1,0 +1,18 @@
+# Luanti portable runtime (download via README)
+tools/luanti/
+tools/*.zip
+tools/luanti-server.log
+
+# World runtime data
+games/voxsoul/worlds/*/map.sqlite
+games/voxsoul/worlds/*/map.sqlite-*
+games/voxsoul/worlds/*/mod_storage/
+games/voxsoul/worlds/*/env_meta.txt
+games/voxsoul/worlds/*/map_meta.txt
+games/voxsoul/worlds/*/force_loaded.txt
+games/voxsoul/worlds/*/ipban.txt
+
+# SDD scratch
+.superpowers/sdd/*.diff
+.superpowers/sdd/task-*-brief.md
+.superpowers/sdd/task-*-report.md

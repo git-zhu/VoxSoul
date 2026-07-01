@@ -2,6 +2,12 @@ voxsoul.world = {}
 voxsoul.world._edge = {}
 voxsoul.world.enemy_spawns = {}
 
+local modpath = minetest.get_modpath("voxsoul_world")
+dofile(modpath .. "/nodes.lua")
+dofile(modpath .. "/map_builder.lua")
+
+local SPAWN_Y = 11
+
 function voxsoul.world.respawn_enemies()
     for _, spawn in ipairs(voxsoul.world.enemy_spawns) do
         if spawn.entity and spawn.entity:get_luaentity() then
@@ -93,15 +99,18 @@ local function register_spawn(pos, name)
 end
 
 minetest.register_on_mods_loaded(function()
-    register_spawn(vector.new(50, 10, 5), "voxsoul_world:knight")
-    register_spawn(vector.new(55, 10, -5), "voxsoul_world:knight")
-    register_spawn(vector.new(210, 5, 45), "voxsoul_world:omen_freak")
-    register_spawn(vector.new(215, 5, 50), "voxsoul_world:omen_freak")
-    register_spawn(vector.new(220, 5, 55), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(50, SPAWN_Y, 5), "voxsoul_world:knight")
+    register_spawn(vector.new(55, SPAWN_Y, -5), "voxsoul_world:knight")
+    register_spawn(vector.new(210, 6, 45), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(215, 6, 50), "voxsoul_world:omen_freak")
+    register_spawn(vector.new(220, 6, 55), "voxsoul_world:omen_freak")
+    minetest.after(0, function()
+        voxsoul.world.ensure_map()
+    end)
 end)
 
 minetest.register_on_newplayer(function(player)
-    player:set_pos(vector.new(0, 10, 0))
+    player:set_pos(vector.new(0, SPAWN_Y, 0))
 end)
 
 minetest.register_on_joinplayer(function(player)
@@ -109,13 +118,13 @@ minetest.register_on_joinplayer(function(player)
         if not player:is_player() then return end
         voxsoul.world.respawn_enemies()
         if not voxsoul.boss.is_defeated("tree_sentinel") then
-            voxsoul.boss.spawn("tree_sentinel", vector.new(80, 10, 0))
+            voxsoul.boss.spawn("tree_sentinel", vector.new(80, SPAWN_Y, 0))
         end
         if not voxsoul.boss.is_defeated("margit") then
-            voxsoul.boss.spawn("margit", vector.new(160, 10, 0))
+            voxsoul.boss.spawn("margit", vector.new(160, SPAWN_Y, 0))
         end
         if not voxsoul.boss.is_defeated("grafted_hag") then
-            voxsoul.boss.spawn("grafted_hag", vector.new(230, 5, 50))
+            voxsoul.boss.spawn("grafted_hag", vector.new(230, 6, 50))
         end
     end)
 end)

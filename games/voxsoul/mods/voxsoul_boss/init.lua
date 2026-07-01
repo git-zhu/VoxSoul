@@ -13,13 +13,13 @@ for _, name in ipairs({ "tree_sentinel", "margit", "grafted_hag" }) do
 end
 
 function voxsoul.boss.is_defeated(boss_id)
-    return minetest.get_worldmeta():get_string("voxsoul:boss:" .. boss_id) == "1"
+    return voxsoul.get_string("voxsoul:boss:" .. boss_id) == "1"
 end
 
 function voxsoul.boss.on_defeated(boss_id, player)
     local def = voxsoul.boss.registry[boss_id]
     if not def then return end
-    minetest.get_worldmeta():set_string("voxsoul:boss:" .. boss_id, "1")
+    voxsoul.set_string("voxsoul:boss:" .. boss_id, "1")
     voxsoul.player.add_runes(player, def.runes)
     if def.drop and def.drop.weapon then
         voxsoul.items.equip_weapon(player, def.drop.weapon)

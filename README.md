@@ -4,68 +4,73 @@ Elden Ring 风格的 souls-like Luanti 子游戏（非官方同人项目）。
 
 ## 前置要求
 
-- [Luanti](https://www.luanti.org/)（原 Minetest）已安装
-- Windows PowerShell（用于创建目录联接）
+- Luanti **5.13+**（本仓库已包含便携版 5.16.1，见下方「快速启动」）
+- Windows 10/11
 
-## 目录结构
+## 快速启动（便携 Luanti）
 
-```
-games/voxsoul/
-├── game.conf              # 子游戏配置
-├── FAN_PROJECT.md         # 同人项目声明
-├── mods/
-│   └── voxsoul_core/      # 核心 mod（全局 voxsoul 表）
-└── worlds/
-    └── demo_interlude/    # 示例世界配置
-```
-
-## 链接到 Luanti
-
-Luanti 会从用户目录下的 `games/` 文件夹加载子游戏。将本仓库中的 `games/voxsoul` 链接到 Luanti 用户目录即可，无需复制整个仓库。
-
-### Windows（目录联接）
-
-在 PowerShell 中执行（请将路径替换为你的实际路径）：
+仓库内已下载 Luanti 5.16.1 便携版，并完成子游戏联接：
 
 ```powershell
-$LuantiUser = "$env:APPDATA\Luanti"
-$RepoGame   = "D:\Z\game\VoxSoul\games\voxsoul"
+# 启动 Luanti 客户端
+& "D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\bin\luanti.exe"
 
-# 确保 Luanti games 目录存在
-New-Item -ItemType Directory -Force -Path "$LuantiUser\games" | Out-Null
-
-# 创建目录联接（需管理员权限或开发者模式）
-New-Item -ItemType Junction -Path "$LuantiUser\games\voxsoul" -Target $RepoGame
+# 或启动专用服务器（联调 / 多人）
+& "D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\bin\luanti.exe" `
+  --server --world "D:\Z\game\VoxSoul\games\voxsoul\worlds\demo_interlude" --gameid voxsoul
 ```
 
-若 `$env:APPDATA\Luanti` 尚不存在，请先启动 Luanti 一次以生成用户目录，再执行上述命令。
+**首次进入游戏：**
 
-### Linux / macOS（符号链接）
+1. 启动客户端 → **开始游戏** → 选择世界 **demo_interlude**（或新建，游戏选 **VoxSoul**）
+2. 控制台应出现全部 `[voxsoul_tests] ... passed` 与 `[voxsoul_world] Demo map build complete`（仅首次建图）
+3. 出生点：引导废墟 `(0, 11, 0)`
 
-```bash
-ln -s /path/to/VoxSoul/games/voxsoul ~/.local/share/luanti/games/voxsoul
+## 操作
+
+| 输入 | 动作 |
+|------|------|
+| LMB | 轻攻击 |
+| Shift + LMB | 重攻击 |
+| RMB | 格挡 |
+| Space + 方向 | 闪避 |
+| E (aux1) | 赐福交互 |
+| `/lockon` | 锁定目标 |
+| `/voxsoul unstuck` | 传送到最近赐福 |
+
+## Demo 地图路线
+
+```
+引导废墟 → 门旁赐福 → 开阔道(大树守卫) → 风暴赐福
+→ 玛尔基特 → 关卡后赐福 → 接肢墓(鬼婆)
 ```
 
-（Luanti 用户目录因平台而异，请以实际安装位置为准。）
+## 链接到系统 Luanti（可选）
 
-## 验证加载
+若已安装 Luanti 到 `%APPDATA%\Luanti`：
 
-1. 启动 Luanti
-2. 创建新世界 → 选择子游戏 **VoxSoul**
-3. 进入世界后，在控制台或日志中应看到：
+```powershell
+New-Item -ItemType Junction -Path "$env:APPDATA\Luanti\games\voxsoul" -Target "D:\Z\game\VoxSoul\games\voxsoul"
+```
 
-   ```
-   [voxsoul_core] Loading VoxSoul 0.1.0-dev
-   ```
+便携版联接路径（已配置）：
 
-4. 无报错即表示脚手架加载成功
+```
+D:\Z\game\VoxSoul\tools\luanti\luanti-5.16.1-win64\games\voxsoul → 仓库 games/voxsoul
+```
+
+## 联调验证结果（2026-07-01）
+
+- Luanti 5.16.1 服务器加载 **10 个 mod** 无 ModError
+- 自动测试全部通过（core / camera / hitbox / combat / player / boss / integration）
+- 体素 Demo 地图首次启动自动构建（`map_builder.lua`）
 
 ## 开发说明
 
-- 当前仅启用 `voxsoul_core` mod；其余 mod 将在后续任务中逐步添加并在 `game.conf` 中启用
-- 全局命名空间：`voxsoul = {}`，版本号见 `voxsoul.VERSION`
-- 示例世界配置位于 `worlds/demo_interlude/world.mt`
+- 全局命名空间 `voxsoul = {}`；持久化使用 `minetest.get_mod_storage()`
+- 贴图为 16×16 占位 PNG，可替换为正式美术
+- 详见 `docs/superpowers/specs/2026-07-01-voxsoul-elden-design.md`
 
 ## 同人项目声明
 
-详见 [games/voxsoul/FAN_PROJECT.md](games/voxsoul/FAN_PROJECT.md)。本项目与 FromSoftware、Bandai Namco 无任何关联，仅供个人或小范围使用，请勿商业化。
+详见 [games/voxsoul/FAN_PROJECT.md](games/voxsoul/FAN_PROJECT.md)。
