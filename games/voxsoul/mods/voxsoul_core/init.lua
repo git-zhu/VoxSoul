@@ -10,3 +10,5 @@ minetest.register_on_joinplayer(function(player)
         gravity = 1.0,
     })
 end)
+
+dofile(minetest.get_modpath("voxsoul_core") .. "/disable_defaults.lua")

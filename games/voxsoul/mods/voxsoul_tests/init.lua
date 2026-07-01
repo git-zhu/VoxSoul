@@ -1,0 +1,5 @@
+minetest.register_on_mods_loaded(function()
+    assert(voxsoul.core, "voxsoul.core must exist")
+    assert(voxsoul.core.is_digging_disabled == true, "digging should be disabled")
+    minetest.log("action", "[voxsoul_tests] core tests passed")
+end)
