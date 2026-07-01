@@ -1,7 +1,7 @@
 # VoxSoul Agent Loop
 
-**Mode:** continuous (no fixed interval)  
-**Wake delay:** 3s one-shot heartbeat after each turn  
+**Mode:** polish-only (85% code gate met)  
+**Wake delay:** 30s one-shot heartbeat after each turn  
 **Sentinel:** `AGENT_LOOP_WAKE_voxsoul`
 
 ## Prompt (each tick)
